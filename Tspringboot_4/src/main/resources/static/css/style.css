@@ -6,7 +6,6 @@
     --dark: #091E3E;
 }
 
-
 /*** Spinner ***/
 .spinner {
     width: 40px;
@@ -489,4 +488,46 @@ h6,
     .footer-about {
         margin-bottom: -75px;
     }
+}
+.col-regdate{
+    width:20%;
+    text-align:center;
+}
+.col-title{
+    width:30%;
+    text-align:center;
+}
+.col-sort{
+	 width:15%;
+    text-align:center;
+}
+.col-writer{
+    width:10%;
+    text-align:center;
+    
+}
+.col-num,
+.col-hitcount{
+    width:7.5%;
+    text-align:center;
+}
+.col-num1{
+	width:7.5%;
+	text-align:center;
+}
+.col-content1{
+	width:35%;
+	text-align:center;
+}
+.col-title1{
+	width:30%;
+	text-align:center;
+}
+.col-writer1{
+	width:10%;
+	text-align:center;
+}
+.col-regdate1{
+	width:17.5%;
+	text-align:center;
 }

@@ -21,19 +21,7 @@ public class UserFailHandler implements AuthenticationFailureHandler{
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
-		System.out.println("fail");
-		String errorMsg = null;
-		if(exception instanceof BadCredentialsException ) {
-			errorMsg = "아이디 또는 비밀번호가 일치하지 않습니다.";
-		}else if(exception instanceof DisabledException) {
-			errorMsg = "비활성화 된 계정입니다.";
-		}else if(exception instanceof LockedException) {
-			errorMsg = "잠긴 계정입니다.";
-		}else {
-			errorMsg = "fail";
-		}
-		
-		request.setAttribute("errorMsg", errorMsg);
+		request.setAttribute("errorMsg", "아이디 또는 비밀번호가 일치하지 않습니다.");
 		request.getRequestDispatcher("/login?error=true")
 				.forward(request, response);
 		
