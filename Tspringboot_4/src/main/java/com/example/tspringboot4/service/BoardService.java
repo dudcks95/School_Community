@@ -8,7 +8,7 @@ import com.example.tspringboot4.repository.BoardRepository;
 @Service
 public class BoardService {
 	@Autowired
-	private BoardRepository boardRepositoroy;
+	private BoardRepository boardRepository;
 	
 	
 	

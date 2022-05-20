@@ -3,6 +3,7 @@ package com.example.tspringboot4.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,13 +69,25 @@ public class HomeController {
 		userService.userJoin(user);
 		return "success";
 	}
-	@GetMapping("mypage")
-	public String mypage() {
-		return "/user/mypage";
-	}
+	
+	//내가 작성한 글폼
 	@GetMapping("mywrite")
 	public String mywrite() {
 		return "/user/mywrite";
 	}
+	//내가 작성한 댓글폼
+	@GetMapping("mycomment")
+	public String mycomment() {
+		return "/user/mycomment";
+	}
+	//회원정보수정
+	@GetMapping("myinfo/{no}")
+	public String mypage(@PathVariable Long no, Model model) {
+		model.addAttribute("user", userService.findById(no));
+		return "/user/myinfo";
+	}
+	//회원탈퇴
+	
+	//회원수정
 	
 }

@@ -1,5 +1,7 @@
 package com.example.tspringboot4.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -56,7 +58,9 @@ public class UserService {
 	}
 	
 	//회원 정보 상세보기
+	@Transactional
 	public User findById(Long no) {
-		return null;
+		User user = userRepository.findById(no).get();
+		return user;
 	}
 }
