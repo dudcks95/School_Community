@@ -9,5 +9,5 @@ import com.example.tspringboot4.model.User;
 public interface UserRepository extends JpaRepository<User, Long>{
 	User findByUsername(String username);
 	
-		
+	
 }

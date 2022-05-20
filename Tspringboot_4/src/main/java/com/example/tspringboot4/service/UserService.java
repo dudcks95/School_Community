@@ -29,7 +29,7 @@ public class UserService {
 	}
 	//아이디중복확인
 	public String idCheck(String username) {
-		System.out.println(username);
+		//System.out.println(username);
 		User user= userRepository.findByUsername(username);
 		if(user==null) {
 			return "yes";
@@ -48,13 +48,24 @@ public class UserService {
 	}
 	
 	//회원 정보 수정
+	@Transactional
 	public void userUpdate(User user) {
-		
+		User u=userRepository.findById(user.getNo()).get();
+		u.setName(user.getName());
+		u.setUsername(user.getUsername());
+		String rawPassword=user.getPassword();
+		String encPassword=encoder.encode(rawPassword);
+		u.setPassword(encPassword);
+		u.setEmail(user.getEmail());
+		u.setPhone(user.getPhone());
+		u.setSchool(user.getSchool());
+		u.setSchoolgrade(user.getSchoolgrade());
 	}
 	
 	//회원 정보 삭제
+	@Transactional
 	public void userDelete(Long no) {
-		
+		userRepository.deleteById(no);
 	}
 	
 	//회원 정보 상세보기

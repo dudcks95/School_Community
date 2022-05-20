@@ -14,13 +14,14 @@
 					</div>
 					<div class="link-animated d-flex flex-column justify-content-start">
 						<a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+							href="/myinfo/${user.no }"><i class="bi bi-arrow-right me-2"></i>회원정보수정</a> <a
+							class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
 							href="/mywrite"><i class="bi bi-arrow-right me-2"></i>내가 작성한
 							글</a> <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
 							href="/mycomment"><i class="bi bi-arrow-right me-2"></i>내가
-							작성한 댓글</a> <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-							href="/mypage"><i class="bi bi-arrow-right me-2"></i>회원정보수정</a><a
-							class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#"><i
-							class="bi bi-arrow-right me-2"></i>Keyword Research</a> <a
+							작성한 댓글</a><a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+							href="#"><i class="bi bi-arrow-right me-2"></i>Keyword
+							Research</a> <a
 							class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#"><i
 							class="bi bi-arrow-right me-2"></i>Email Marketing</a>
 					</div>
@@ -45,7 +46,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="bg-white col-num1">1</td>							
+								<td class="bg-white col-num1">1</td>
 								<td class="bg-white col-title1">안녕하세요 새로들어온 강하나입니다</td>
 								<td class="bg-white col-content1">자유게시판</td>
 								<td class="bg-white col-writer1">강하나</td>

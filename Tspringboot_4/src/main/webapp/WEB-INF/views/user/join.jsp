@@ -131,8 +131,8 @@
 						return false;
 					}
 					var data = {
+						"name" : $("#name").val(),
 						"username" : $("#username").val(),
-						"userid" : $("#userid").val(),
 						"password" : $("#password").val(),
 						"pwd_check" : $("#pwd_check").val(),
 						"email" : $("#email").val(),

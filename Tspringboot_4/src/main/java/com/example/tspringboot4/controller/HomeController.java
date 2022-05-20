@@ -2,9 +2,11 @@ package com.example.tspringboot4.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,7 +26,7 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String home() {
-		return "quote";
+		return "/user/mywrite";
 	}
 	//로그인
 	@GetMapping("/login")
@@ -54,7 +56,7 @@ public class HomeController {
 	
 	//회원가입
 	@GetMapping("join")
-	public String join() {
+	public String join(Model model) {
 		return "/user/join";
 	}
 	@PostMapping("/join")
@@ -80,14 +82,27 @@ public class HomeController {
 	public String mycomment() {
 		return "/user/mycomment";
 	}
-	//회원정보수정
+	//회원정보수정폼
 	@GetMapping("myinfo/{no}")
-	public String mypage(@PathVariable Long no, Model model) {
+	public String myinfo(@PathVariable Long no, Model model) {
 		model.addAttribute("user", userService.findById(no));
 		return "/user/myinfo";
 	}
-	//회원탈퇴
-	
 	//회원수정
+	@PutMapping("update")
+	@ResponseBody
+	public String update(@RequestBody User user) {
+		userService.userUpdate(user);
+		return "success";
+	}
+	
+	//회원탈퇴
+	@DeleteMapping("delete/{no}")
+	@ResponseBody
+	public String delete(@PathVariable Long no) {
+		userService.userDelete(no);
+		return "success";
+	}
+
 	
 }

@@ -31,15 +31,15 @@
 	rel="stylesheet">
 
 <!-- Libraries Stylesheet -->
-<link href="lib/owlcarousel/assets/owl.carousel.min.css"
+<link href="/lib/owlcarousel/assets/owl.carousel.min.css"
 	rel="stylesheet">
-<link href="lib/animate/animate.min.css" rel="stylesheet">
+<link href="/lib/animate/animate.min.css" rel="stylesheet">
 
 <!-- Customized Bootstrap Stylesheet -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Template Stylesheet -->
-<link href="css/style.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -132,8 +132,16 @@
 				<butaton type="button" class="btn text-primary ms-3"
 					data-bs-toggle="modal" data-bs-target="#searchModal">
 				<i class="fa fa-search"></i></butaton>
-				<a href="https://htmlcodex.com/startup-company-website-template"
-					class="btn btn-primary py-2 px-4 ms-3">Download Pro Version</a>
+				<sec:authorize access="isAnonymous()">
+					<a class="nav-item nav-link" href="/login">로그인</a>
+					<a class="nav-item nav-link" href="/join">회원가입</a>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<a class="nav-item nav-link" href="/myinfo/${principal.user.no }">마이페이지</a>
+					<a class="nav-item nav-link" href="/logout">로그아웃
+					(${principal.user.name}님)</a>
+				</sec:authorize>
+				
 			</div>
 		</nav>
 
