@@ -7,8 +7,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.example.tspringboot4.config.auth.UserFailHandler;
+
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
+	@Autowired
+	private UserFailHandler userFailHandler;
+	
 	@Bean
 	public BCryptPasswordEncoder encodePwd() {
 		return new BCryptPasswordEncoder();
@@ -25,7 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.formLogin()
 			.loginPage("/login")
 			.defaultSuccessUrl("/")
-			.failureUrl("/login/error")
+			 .failureHandler(userFailHandler)
+			//.failureUrl("/login/error")
 		.and()
 			.logout()
 			.logoutUrl("/logout")

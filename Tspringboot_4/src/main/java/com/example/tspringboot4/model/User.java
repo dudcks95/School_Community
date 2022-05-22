@@ -21,14 +21,14 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long no;
-	private String userid;
+	private String name;
 	private String username;
 	private String password;
 	private String email;
 	private String phone;
 	private String addr;
 	@ManyToOne
-	@JoinColumn(name = "school")
+	@JoinColumn(name = "schoolname")
 	private School school;
 	private Long schoolgrade;
 	private String role;

@@ -42,7 +42,7 @@
 		<tr>
 			<td class="bg-white">${board.no }</td>
 			<td class="bg-white">${board.sort }</td>
-			<td class="bg-white"><a href="">${board.title }</a></td>
+			<td class="bg-white"><a href="/board/boardDetail/${board.no}">${board.title }</a></td>
 			<td class="bg-white">
 			<fmt:formatDate value= "${board.regdate }" pattern="yyyy-MM-dd"/>
 			</td>
