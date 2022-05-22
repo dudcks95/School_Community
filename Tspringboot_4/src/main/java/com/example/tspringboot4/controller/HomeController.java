@@ -26,7 +26,7 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String home() {
-		return "/user/mywrite";
+		return "home";
 	}
 	//로그인
 	@GetMapping("/login")
@@ -73,13 +73,15 @@ public class HomeController {
 	}
 	
 	//내가 작성한 글폼
-	@GetMapping("mywrite")
-	public String mywrite() {
+	@GetMapping("mywrite/{no}")
+	public String mywrite(@PathVariable Long no, Model model) {
+		model.addAttribute("user", userService.findById(no));
 		return "/user/mywrite";
 	}
 	//내가 작성한 댓글폼
-	@GetMapping("mycomment")
-	public String mycomment() {
+	@GetMapping("mycomment/{no}")
+	public String mycomment(@PathVariable Long no, Model model) {
+		model.addAttribute("user", userService.findById(no));
 		return "/user/mycomment";
 	}
 	//회원정보수정폼
