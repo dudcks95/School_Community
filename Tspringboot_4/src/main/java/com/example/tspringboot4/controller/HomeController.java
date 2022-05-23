@@ -131,7 +131,7 @@ public class HomeController {
 	@ResponseBody
 	public String join(@RequestBody User user) {
 		School school = new School();
-		school.setSchoolname(user.getSchool().getSchoolname());
+		school.setSchoolName(user.getSchool().getSchoolName());
 		user.setSchool(school);
 		if (userRepository.findByUsername(user.getUsername()) != null) {
 			return "fail";

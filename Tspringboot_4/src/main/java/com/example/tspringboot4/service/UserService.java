@@ -31,12 +31,13 @@ public class UserService {
 	}
 
 	// 회원 리스트(페이징, 검색 포함, 관리자 전용)
-	public Page<User> userFindList(String name, Pageable pageable){
+	public Page<User> userFindList(String name, Pageable pageable) {
 		Page<User> lists = userRepository.findAll(pageable);
-		lists = userRepository.findByUsernameContaining(name,pageable);
+		lists = userRepository.findByUsernameContaining(name, pageable);
 		return lists;
-		
-	//아이디중복확인
+	}
+
+	// 아이디중복확인
 	public String idCheck(String username) {
 		// System.out.println(username);
 		User user = userRepository.findByUsername(username);

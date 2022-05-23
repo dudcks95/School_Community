@@ -2,6 +2,8 @@ package com.example.tspringboot4.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +26,26 @@ public class BoardService {
 	}
 	
 	//게시글 삭제
+	@Transactional
+	public void boardDelete(Long no) {
+		boardRepositoroy.deleteById(no);
+	}
 	
 	//게시글 수정
+	public void boardUpdate(Board board) {
+		Board b = boardRepositoroy.findById(board.getNo()).get();
+		b.setTitle(board.getTitle());
+		b.setContent(board.getContent());
+		b.setImage(board.getImage());
+	}
 	
 	//게시글 상세보기
-	
+	@Transactional
+	public Board boardDetail(Long no) {
+		Board board = boardRepositoroy.findById(no).get();
+		board.setHitcount(board.getHitcount()+1);
+		return board;
+	}
 	//
 	
 	
