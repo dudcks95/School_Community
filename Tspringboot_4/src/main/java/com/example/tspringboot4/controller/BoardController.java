@@ -1,6 +1,7 @@
 package com.example.tspringboot4.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.example.tspringboot4.config.auth.PrincipalDetails;
 import com.example.tspringboot4.model.Board;
 import com.example.tspringboot4.service.BoardService;
 
@@ -35,8 +37,9 @@ public class BoardController {
 
 	// 게시판 입력
 	@PostMapping("boardInsert")
-	public String insert(Board board) {
-		boardService.boardInsert(board);
+	public String insert(Board board,
+			@AuthenticationPrincipal PrincipalDetails principal) {
+		boardService.boardInsert(board, principal.getUser());
 		return "redirect:/boardList";
 	}
 

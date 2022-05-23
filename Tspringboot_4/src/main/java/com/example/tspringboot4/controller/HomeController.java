@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -124,6 +128,7 @@ public class HomeController {
 	// 회원가입
 	@GetMapping("join")
 	public String join(Model model) {
+		model.addAttribute("schools", schoolRepository.findAll());
 		return "/user/join";
 	}
 
@@ -177,4 +182,17 @@ public class HomeController {
 		return "success";
 	}
 
+	@GetMapping("userlist")
+	public String userlist(Model model,
+			@PageableDefault(size = 8, sort = "no", direction = Direction.DESC) Pageable pageable,
+			@RequestParam(required = false, defaultValue = "") String name) {
+		Page<User> lists = userService.userFindList(name, pageable);
+		model.addAttribute("users", lists);
+		return "/user/userlist";
+	}
+
+	@GetMapping("contact")
+	public String contact() {
+		return "/user/contact";
+	}
 }
