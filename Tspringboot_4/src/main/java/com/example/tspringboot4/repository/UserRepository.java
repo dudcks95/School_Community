@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.support.JpaRepositoryImplementati
 
 import com.example.tspringboot4.model.User;
 
-
-
-public interface UserRepository extends JpaRepository<User, Long>{
+public interface UserRepository extends JpaRepository<User, Long> {
 	Page<User> findByUsernameContaining(String username, Pageable pageable);
+
 	User findByUsername(String username);
+
 }

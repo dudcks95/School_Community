@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.tspringboot4.model.Board;
 import com.example.tspringboot4.service.BoardService;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-
-@RequestMapping("/board/*")
 @Controller
 public class BoardController {
 	@Autowired
