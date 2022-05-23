@@ -83,13 +83,13 @@
 							</div>
 							<div class="col-12 col-sm-3">
 								<input type="text" class="form-control bg-light border-0"
-									disabled="disabled" placeholder="재학중인 학교" readonly="readonly"
+									disabled="disabled" placeholder="학교" readonly="readonly"
 									style="height: 55px;">
 							</div>
 							<div class="col-12 col-sm-9">
 								<input type="text" class="form-control bg-white border-0"
-									id="schoolname" name="schoolname"
-									value="${user.school.schoolname }" style="height: 55px;">
+									id="schoolName" name="schoolName" value="${user.school.schoolName }"
+									style="height: 55px;" disabled="disabled">
 							</div>
 							<div class="form-check-inline">
 								<label class="form-check-label"> <input type="radio"
@@ -162,7 +162,7 @@
 				"email" : $("#email").val(),
 				"phone" : $("#phone").val(),
 				"school" : {
-					"schoolname" : $("#schoolname").val()
+					"schoolName" : $("#schoolName").val()
 				},
 				"schoolgrade" : $(
 						"input:radio[name='schoolgrade']:checked")
@@ -175,7 +175,7 @@
 			data:JSON.stringify(data),
 			success:function(resp){
 				alert("수정완료")
-				location.href="/mywrite";
+				location.href="/mywrite/${user.no}";
 			},
 			error:function(){
 				alert("수정실패")

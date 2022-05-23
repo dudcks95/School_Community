@@ -1,5 +1,6 @@
 package com.example.tspringboot4.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,8 +28,8 @@ public class User {
 	private String email;
 	private String phone;
 	private String addr;
-	@ManyToOne
-	@JoinColumn(name = "schoolname")
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "schoolName")
 	private School school;
 	private Long schoolgrade;
 	private String role;

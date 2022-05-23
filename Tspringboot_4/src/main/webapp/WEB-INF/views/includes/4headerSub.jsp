@@ -5,6 +5,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
 <title>Startup - Startup Website Template</title>
@@ -20,14 +21,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
 	href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Rubik:wght@400;500;600;700&display=swap"
-	rel="stylesheet">
-
-<!-- Icon Font Stylesheet -->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-	rel="stylesheet">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
 	rel="stylesheet">
 
 <!-- Libraries Stylesheet -->
@@ -81,7 +74,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- Topbar End -->
+
 
 	<!-- Navbar Start -->
 	<div class="container-fluid position-relative p-0">
@@ -97,9 +90,9 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<div class="navbar-nav ms-auto py-0">
-					<a href="index.html" class="nav-item nav-link active">Home</a>
+					<a href="/WEB-INF/views/home" class="nav-item nav-link active">Home</a>
 					<div class="nav-item dropdown">
-						<a href="about.html" class="nav-item nav-link"
+						<a href="/boardList" class="nav-item nav-link"
 							data-bs-toggle="dropdown">게시판</a>
 						<div class="dropdown-menu m-0">
 							<a href="" class="dropdown-item">자유 게시판</a> <a href=""
@@ -109,7 +102,7 @@
 					<a href="service.html" class="nav-item nav-link">장터</a>
 					<div class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle"
-							data-bs-toggle="dropdown">Blog</a>
+							data-bs-toggle="dropdown" aria-expanded="false">Blog</a>
 						<div class="dropdown-menu m-0">
 							<a href="blog.html" class="dropdown-item">Blog Grid</a> <a
 								href="detail.html" class="dropdown-item">Blog Detail</a>
@@ -130,8 +123,12 @@
 					<a href="contact.html" class="nav-item nav-link">Contact</a>
 				</div>
 				<butaton type="button" class="btn text-primary ms-3"
-					data-bs-toggle="modal" data-bs-target="#searchModal">
-				<i class="fa fa-search"></i></butaton>
+					data-bs-toggle="modal" data-bs-target="#searchModal"> <i
+					class="fa fa-search"></i> </butaton>
+
+				<butaton type="button" class="btn text-primary ms-3"
+					data-bs-toggle="modal" data-bs-target="#searchModal"> <i
+					class="fa fa-search"></i> </butaton>
 				<sec:authorize access="isAnonymous()">
 					<a class="nav-item nav-link" href="/login">로그인</a>
 					<a class="nav-item nav-link" href="/join">회원가입</a>
@@ -139,13 +136,12 @@
 				<sec:authorize access="isAuthenticated()">
 					<a class="nav-item nav-link" href="/myinfo/${principal.user.no }">마이페이지</a>
 					<a class="nav-item nav-link" href="/logout">로그아웃
-					(${principal.user.name}님)</a>
+						(${principal.user.name}님)</a>
 				</sec:authorize>
-				
 			</div>
 		</nav>
 
-		<div class="container-fluid bg-primary py-5 bg-header"
+		<!-- <div class="container-fluid bg-primary py-5 bg-header"
 			style="margin-bottom: 90px;">
 			<div class="row py-5">
 				<div class="col-12 pt-lg-5 mt-lg-5 text-center">
@@ -155,8 +151,9 @@
 						class="h5 text-white">Free Quote</a>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 	<!-- Navbar End -->
 </body>
+
 </html>
