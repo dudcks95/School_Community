@@ -19,6 +19,13 @@
 				<button type="button" class="btn btn-dark btn-block">회원가입</button>
 			</form>
 			</div> --%>
+			<div class="container-fluid bg-primary py-5 bg-header" style="margin-bottom: 90px;">
+			<div class="row">
+				<div class="col-12">
+
+				</div>
+			</div>
+		</div>
 			<div class="container mt-5">
 				<h1 align="center">로그인</h1>
 				<div class="rounded h-100 flex align-items-center p-5 wow zoomIn" data-wow-delay="0.9s"

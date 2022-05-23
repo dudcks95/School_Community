@@ -25,7 +25,6 @@
 				<div class="form-group">
 					<label for="content">내용:</label>
 					<textarea class="form-control" row="5" id="content" name="content"></textarea>
-					<!-- #을쓰지 않는 이상 name으로 넘어감, jQuery는 id를 사용함 -->
 				</div>
 
 				<button type="submit" class="btn btn-primary btn-sm">글쓰기</button>

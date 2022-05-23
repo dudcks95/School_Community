@@ -6,11 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.tspringboot4.model.Board;
 import com.example.tspringboot4.service.BoardService;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 //@RequestMapping("/board/*")
 @Controller
@@ -39,16 +42,24 @@ public class BoardController {
 
 	// 게시판 상세보기
 	@GetMapping("boardDetail/{no}")
-	public String detail(@PathVariable Long no) {
-		boardService.boardDetail(no);
+	public String detail(@PathVariable Long no, Model model) {
+		model.addAttribute("board", boardService.boardDetail(no));
 		return "/board/boardDetail";
 	}
 
 	// 게시판 수정 폼
-	@GetMapping("boardUpdate")
-	public String update(Board board) {
+	@GetMapping("boardUpdate/{no}")
+	public String update(@PathVariable Long no, Model model) {
+		model.addAttribute("board", boardService.boardDetail(no));
+		return "/board/boardUpdate";
+	}
+
+	// 게시판 수정
+	@PutMapping("boardUpdate")
+	@ResponseBody
+	public String update(@RequestBody Board board) {
 		boardService.boardUpdate(board);
-		return "redirect:boardList";
+		return "success";
 	}
 
 }

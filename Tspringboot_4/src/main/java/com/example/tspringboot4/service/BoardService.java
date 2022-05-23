@@ -32,6 +32,7 @@ public class BoardService {
 	}
 	
 	//게시글 수정
+	@Transactional
 	public void boardUpdate(Board board) {
 		Board b = boardRepositoroy.findById(board.getNo()).get();
 		b.setTitle(board.getTitle());
