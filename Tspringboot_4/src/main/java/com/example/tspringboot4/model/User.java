@@ -28,7 +28,7 @@ public class User {
 	private String phone;
 	private String addr;
 	@ManyToOne
-	@JoinColumn(name = "schoolname")
+	@JoinColumn(name = "schoolName")
 	private School school;
 	private Long schoolgrade;
 	private String role;

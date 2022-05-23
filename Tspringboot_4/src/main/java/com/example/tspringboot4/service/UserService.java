@@ -19,7 +19,6 @@ public class UserService {
 	private UserRepository userRepository;
 	@Autowired
 	private BCryptPasswordEncoder encoder;
-	
 	private String flag = "yes";
 
 	// 회원가입
@@ -32,38 +31,44 @@ public class UserService {
 	}
 
 	// 회원 리스트(페이징, 검색 포함, 관리자 전용)
-	public Page<User> userFindList(String name, Pageable pageable){
+	public Page<User> userFindList(String name, Pageable pageable) {
 		Page<User> lists = userRepository.findAll(pageable);
-		lists = userRepository.findByUsernameContaining(name,pageable);
+		lists = userRepository.findByUsernameContaining(name, pageable);
 		return lists;
 	}
-	//아이디중복확인
+
+	// 아이디중복확인
 	public String idCheck(String username) {
-		System.out.println(username);
-		User user= userRepository.findByUsername(username);
-		if(user==null) {
+		// System.out.println(username);
+		User user = userRepository.findByUsername(username);
+		if (user == null) {
 			return "yes";
 		}
 		return "no";
 	}
-	
 
-	
 	// 회원 수 (검색 전, 후)
 	public Long userCount(String field, String word) {
 		return userRepository.count();
 	}
 
 	// 회원 정보 수정
+	@Transactional
 	public void userUpdate(User user) {
 		User u = userRepository.findById(user.getNo()).get();
-		u.setPassword(user.getPassword());
+		u.setName(user.getName());
+		u.setUsername(user.getUsername());
+		String rawPassword = user.getPassword();
+		String encPassword = encoder.encode(rawPassword);
+		u.setPassword(encPassword);
 		u.setEmail(user.getEmail());
 		u.setPhone(user.getPhone());
-		u.setAddr(user.getAddr());
+		u.setSchool(user.getSchool());
+		u.setSchoolgrade(user.getSchoolgrade());
 	}
 
 	// 회원 정보 삭제
+	@Transactional
 	public void userDelete(Long no) {
 		userRepository.deleteById(no);
 	}

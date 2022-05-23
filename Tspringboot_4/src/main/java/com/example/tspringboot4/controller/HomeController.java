@@ -12,11 +12,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.PathVariable;
 
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -120,7 +123,7 @@ public class HomeController {
 
 	// 회원가입
 	@GetMapping("join")
-	public String join() {
+	public String join(Model model) {
 		return "/user/join";
 	}
 
@@ -138,25 +141,40 @@ public class HomeController {
 	}
 
 	// 내가 작성한 글폼
-	@GetMapping("mywrite")
-	public String mywrite() {
+	@GetMapping("mywrite/{no}")
+	public String mywrite(@PathVariable Long no, Model model) {
+		model.addAttribute("user", userService.findById(no));
 		return "/user/mywrite";
 	}
 
 	// 내가 작성한 댓글폼
-	@GetMapping("mycomment")
-	public String mycomment() {
+	@GetMapping("mycomment/{no}")
+	public String mycomment(@PathVariable Long no, Model model) {
+		model.addAttribute("user", userService.findById(no));
 		return "/user/mycomment";
 	}
 
-	// 회원정보수정
+	// 회원정보수정폼
 	@GetMapping("myinfo/{no}")
-	public String mypage(@PathVariable Long no, Model model) {
+	public String myinfo(@PathVariable Long no, Model model) {
 		model.addAttribute("user", userService.findById(no));
 		return "/user/myinfo";
 	}
-	// 회원탈퇴
 
 	// 회원수정
+	@PutMapping("update")
+	@ResponseBody
+	public String update(@RequestBody User user) {
+		userService.userUpdate(user);
+		return "success";
+	}
+
+	// 회원탈퇴
+	@DeleteMapping("delete/{no}")
+	@ResponseBody
+	public String delete(@PathVariable Long no) {
+		userService.userDelete(no);
+		return "success";
+	}
 
 }

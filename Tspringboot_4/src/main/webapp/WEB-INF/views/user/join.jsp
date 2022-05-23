@@ -68,90 +68,97 @@
 					</div>
 				</div>
 			</div>
-			<script>
-				$("#btnJoin").click(
-					function () {
-						var tel = /^[0-9]{3}-[0-9]{4}-[0-9]{4}$/;
-						var mail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-						if ($("#name").val() == "") {
-							alert("이름을 입력하세요.")
-							$("#name").focus();
-							return false;
+			<br />
+			<br />
+			<div class="col-xl-12">
+				<button class="btn btn-dark w-100 py-3" id="btnJoin">회원가입</button>
+			</div>
+		</div>
+		</div>
+		<script>
+			$("#btnJoin").click(
+				function () {
+					var tel = /^[0-9]{3}-[0-9]{4}-[0-9]{4}$/;
+					var mail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+					if ($("#name").val() == "") {
+						alert("이름을 입력하세요.")
+						$("#name").focus();
+						return false;
+					}
+					if ($("#username").val() == "") {
+						alert("아이디를 입력하세요.")
+						$("#username").focus();
+						return false;
+					}
+					if ($("#password").val() == "") {
+						alert("비밀번호를 입력하세요.")
+						$("#password").focus();
+						return false;
+					}
+					if ($("#password").val() != $("#pwd_check").val()) {
+						alert("비밀번호가 일치하지 않습니다.")
+						$("#pwd_check").focus();
+						return false;
+					}
+					if ($("#email").val() == "") {
+						alert("이메일을 입력하세요.")
+						$("#email").focus();
+						return false;
+					}
+					if (!$("#email").val().match(mail)) {
+						alert("이메일 형식이 아닙니다.")
+						$("#email").focus();
+						return false;
+					}
+					if ($("#phone").val() == "") {
+						alert("전화번호를 입력하세요.")
+						$("#phone").focus();
+						return false;
+					}
+					if (!$("#phone").val().match(tel)) {
+						alert("전화번호 형식이 아닙니다.")
+						$("#phone").focus();
+						return false;
+					}
+					if ($("#schoolname").val() == "") {
+						alert("학교명을 입력하세요.")
+						$("#schoolname").focus();
+						return false;
+					}
+					var data = {
+						"name": $("#name").val(),
+						"username": $("#username").val(),
+						"password": $("#password").val(),
+						"pwd_check": $("#pwd_check").val(),
+						"email": $("#email").val(),
+						"phone": $("#phone").val(),
+						"school": {
+							"schoolname": $("#schoolname").val()
+						},
+						"schoolgrade": $(
+							"input:radio[name='schoolgrade']:checked")
+							.val()
+					}
+					$.ajax({
+						type: "POST",
+						url: "/join",
+						contentType: "application/json;charset=utf-8",
+						data: JSON.stringify(data)
+					}).done(function (resp) {
+						if (resp == "success") {
+							alert("회원가입 성공")
+							location.href = "/login"
 						}
-						if ($("#username").val() == "") {
-							alert("아이디를 입력하세요.")
-							$("#username").focus();
-							return false;
-						}
-						if ($("#password").val() == "") {
-							alert("비밀번호를 입력하세요.")
-							$("#password").focus();
-							return false;
-						}
-						if ($("#password").val() != $("#pwd_check").val()) {
-							alert("비밀번호가 일치하지 않습니다.")
-							$("#pwd_check").focus();
-							return false;
-						}
-						if ($("#email").val() == "") {
-							alert("이메일을 입력하세요.")
-							$("#email").focus();
-							return false;
-						}
-						if (!$("#email").val().match(mail)) {
-							alert("이메일 형식이 아닙니다.")
-							$("#email").focus();
-							return false;
-						}
-						if ($("#phone").val() == "") {
-							alert("전화번호를 입력하세요.")
-							$("#phone").focus();
-							return false;
-						}
-						if (!$("#phone").val().match(tel)) {
-							alert("전화번호 형식이 아닙니다.")
-							$("#phone").focus();
-							return false;
-						}
-						if ($("#schoolname").val() == "") {
-							alert("학교명을 입력하세요.")
-							$("#schoolname").focus();
-							return false;
-						}
-						var data = {
-							"username": $("#username").val(),
-							"userid": $("#userid").val(),
-							"password": $("#password").val(),
-							"pwd_check": $("#pwd_check").val(),
-							"email": $("#email").val(),
-							"phone": $("#phone").val(),
-							"school": {
-								"schoolname": $("#schoolname").val()
-							},
-							"schoolgrade": $(
-								"input:radio[name='schoolgrade']:checked")
-								.val()
-						}
-						$.ajax({
-							type: "POST",
-							url: "/join",
-							contentType: "application/json;charset=utf-8",
-							data: JSON.stringify(data)
-						}).done(function (resp) {
-							if (resp == "success") {
-								alert("회원가입 성공")
-								location.href = "/login"
-							}
-							/* else if(resp=="fail"){
-								alert("아이디 중복")
-								$("#username").val("")
-							} */
-						}).fail(function () {
-							alert("회원가입 실패")
-						})
+						/* else if(resp=="fail"){
+							alert("아이디 중복")
+							$("#username").val("")
+						} */
+					}).fail(function () {
+						alert("회원가입 실패")
 					})
-				$("#idCheckBtn").click(function () {
-					window.open("idCheck", "", "width=600 height=300");
 				})
-			</script>
+			$("#idCheckBtn").click(function () {
+				window.open("idCheck", "", "width=600 height=300");
+			})
+		</script>
 		</div>
