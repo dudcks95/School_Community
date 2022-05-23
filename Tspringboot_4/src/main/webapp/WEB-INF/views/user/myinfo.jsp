@@ -8,23 +8,7 @@
 
 				<!-- Category Start -->
 				<div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-					<div
-						class="section-title section-title-sm position-relative pb-3 mb-4">
-						<h3 class="mb-0">Categories</h3>
-					</div>
-					<div class="link-animated d-flex flex-column justify-content-start">
-						<a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-							href="/myinfo/${user.no }"><i class="bi bi-arrow-right me-2"></i>회원정보수정</a> <a
-							class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-							href="/mywrite/${user.no}"><i class="bi bi-arrow-right me-2"></i>내가 작성한
-							글</a> <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-							href="/mycomment/${user.no}"><i class="bi bi-arrow-right me-2"></i>내가
-							작성한 댓글</a> <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-							href="#"><i class="bi bi-arrow-right me-2"></i>Keyword
-							Research</a> <a
-							class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#"><i
-							class="bi bi-arrow-right me-2"></i>Email Marketing</a>
-					</div>
+					<%@ include file="../includes/categori.jsp"%>
 				</div>
 				<!-- Category End -->
 			</div>
@@ -44,7 +28,8 @@
 							</div>
 							<div class="col-12 col-sm-9">
 								<input type="text" class="form-control bg-white border-0"
-									id="name" name="name" value="${user.name }" style="height: 55px;">
+									id="name" name="name" value="${user.name }"
+									style="height: 55px;">
 							</div>
 							<div class="col-12 col-sm-3">
 								<input type="text" class="form-control bg-light border-0"
@@ -53,7 +38,8 @@
 							</div>
 							<div class="col-12 col-sm-9">
 								<input type="text" class="form-control bg-white border-0"
-									id="username" name="username" value="${user.username }" style="height: 55px;">
+									id="username" name="username" value="${user.username }"
+									style="height: 55px;">
 							</div>
 							<div class="col-12 col-sm-3">
 								<input type="text" class="form-control bg-light border-0"
@@ -62,7 +48,8 @@
 							</div>
 							<div class="col-12 col-sm-9">
 								<input type="password" class="form-control bg-white border-0"
-									id="password" name="password" placeholder="Enter password" style="height: 55px;">
+									id="password" name="password" placeholder="Enter password"
+									style="height: 55px;">
 							</div>
 							<div class="col-12 col-sm-3">
 								<input type="text" class="form-control bg-light border-0"
@@ -71,7 +58,8 @@
 							</div>
 							<div class="col-12 col-sm-9">
 								<input type="password" class="form-control bg-white border-0"
-									id="pwd_check" name="pwd_check" placeholder="Enter pwd_check" style="height: 55px;">
+									id="pwd_check" name="pwd_check" placeholder="Enter pwd_check"
+									style="height: 55px;">
 							</div>
 							<div class="col-12 col-sm-3">
 								<input type="text" class="form-control bg-light border-0"
@@ -80,7 +68,8 @@
 							</div>
 							<div class="col-12 col-sm-9">
 								<input type="email" class="form-control bg-white border-0"
-									id="email" name="email" value="${user.email }" style="height: 55px;">
+									id="email" name="email" value="${user.email }"
+									style="height: 55px;">
 							</div>
 							<div class="col-12 col-sm-3">
 								<input type="text" class="form-control bg-light border-0"
@@ -89,7 +78,8 @@
 							</div>
 							<div class="col-12 col-sm-9">
 								<input type="text" class="form-control bg-white border-0"
-									id="phone" name="phone" value="${user.phone }" style="height: 55px;">
+									id="phone" name="phone" value="${user.phone }"
+									style="height: 55px;">
 							</div>
 							<div class="col-12 col-sm-3">
 								<input type="text" class="form-control bg-light border-0"
@@ -98,12 +88,13 @@
 							</div>
 							<div class="col-12 col-sm-9">
 								<input type="text" class="form-control bg-white border-0"
-									id="schoolname" name="schoolname" value="${user.school.schoolname }" style="height: 55px;">
+									id="schoolname" name="schoolname"
+									value="${user.school.schoolname }" style="height: 55px;">
 							</div>
 							<div class="form-check-inline">
 								<label class="form-check-label"> <input type="radio"
-									class="form-check-input" name="schoolgrade"
-									id="schoolgrade" value="1"> 1학년
+									class="form-check-input" name="schoolgrade" id="schoolgrade"
+									value="1"> 1학년
 								</label> <label class="form-check-label"> <input type="radio"
 									class="form-check-input" name="schoolgrade" id="schoolgrade"
 									value="2"> 2학년
