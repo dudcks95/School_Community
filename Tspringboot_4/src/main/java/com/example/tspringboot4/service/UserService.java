@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.tspringboot4.model.User;
+import com.example.tspringboot4.repository.BoardRepository;
 import com.example.tspringboot4.repository.UserRepository;
 
 import ch.qos.logback.core.encoder.Encoder;
@@ -31,9 +32,11 @@ public class UserService {
 	}
 
 	// 회원 리스트(페이징, 검색 포함, 관리자 전용)
-	public Page<User> userFindList(String name, Pageable pageable){
-		if(name.equals("name"))
-			return userRepository.findByUsernameContaining(name, pageable);
+	public Page<User> userFindList(String field,String word, Pageable pageable){
+		if(field.equals("name"))
+			return userRepository.findByNameContaining(word, pageable);
+		if(field.equals("username"))
+			return userRepository.findByUsernameContaining(word, pageable);
 		return userRepository.findAll(pageable);
 	}
 		
@@ -49,6 +52,10 @@ public class UserService {
 
 	// 회원 수 (검색 전, 후)
 	public Long userCount(String field, String word) {
+		if(field.equals("name"))
+			return userRepository.cntNameContataining(word);
+		if(field.equals("username"))
+			return userRepository.cntUsernameContataining(word);
 		return userRepository.count();
 	}
 
