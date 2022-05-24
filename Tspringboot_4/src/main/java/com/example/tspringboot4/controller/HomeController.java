@@ -185,9 +185,13 @@ public class HomeController {
 	@GetMapping("userlist")
 	public String userlist(Model model,
 			@PageableDefault(size = 8, sort = "no", direction = Direction.DESC) Pageable pageable,
-			@RequestParam(required = false, defaultValue = "") String name) {
-		Page<User> lists = userService.userFindList(name, pageable);
+			@RequestParam(required = false, defaultValue = "") String field,
+			@RequestParam(required = false, defaultValue = "") String word) {
+		Page<User> lists = userService.userFindList(field, word, pageable);
+		Long count = userService.userCount(field, word);
 		model.addAttribute("users", lists);
+		model.addAttribute("count", count);
+		model.addAttribute("rowNo", count - (lists.getNumber() * pageable.getPageSize()));
 		return "/user/userlist";
 	}
 
