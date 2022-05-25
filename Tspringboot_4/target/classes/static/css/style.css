@@ -497,6 +497,9 @@ h6,
     width:30%;
     text-align:center;
 }
+.col-phone,
+.col-username,
+.col-schoolName,
 .col-sort{
 	 width:15%;
     text-align:center;
@@ -506,6 +509,7 @@ h6,
     text-align:center;
     
 }
+.col-delete,
 .col-num,
 .col-hitcount{
     width:7.5%;
@@ -519,10 +523,12 @@ h6,
 	width:35%;
 	text-align:center;
 }
+.col-email,
 .col-title1{
 	width:30%;
 	text-align:center;
 }
+.col-name,
 .col-writer1{
 	width:10%;
 	text-align:center;

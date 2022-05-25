@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -124,6 +128,7 @@ public class HomeController {
 	// 회원가입
 	@GetMapping("join")
 	public String join(Model model) {
+		model.addAttribute("schools", schoolRepository.findAll());
 		return "/user/join";
 	}
 
@@ -131,7 +136,7 @@ public class HomeController {
 	@ResponseBody
 	public String join(@RequestBody User user) {
 		School school = new School();
-		school.setSchoolName(user.getSchool().getSchoolName());
+		school.setSchoolId(user.getSchool().getSchoolId());
 		user.setSchool(school);
 		if (userRepository.findByUsername(user.getUsername()) != null) {
 			return "fail";
@@ -177,4 +182,21 @@ public class HomeController {
 		return "success";
 	}
 
+	@GetMapping("userlist")
+	public String userlist(Model model,
+			@PageableDefault(size = 8, sort = "no", direction = Direction.DESC) Pageable pageable,
+			@RequestParam(required = false, defaultValue = "") String field,
+			@RequestParam(required = false, defaultValue = "") String word) {
+		Page<User> lists = userService.userFindList(field, word, pageable);
+		Long count = userService.userCount(field, word);
+		model.addAttribute("users", lists);
+		model.addAttribute("count", count);
+		model.addAttribute("rowNo", count - (lists.getNumber() * pageable.getPageSize()));
+		return "/user/userlist";
+	}
+
+	@GetMapping("contact")
+	public String contact() {
+		return "/user/contact";
+	}
 }

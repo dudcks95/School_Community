@@ -1,14 +1,17 @@
 package com.example.tspringboot4.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.example.tspringboot4.config.auth.PrincipalDetails;
 import com.example.tspringboot4.model.Board;
 import com.example.tspringboot4.service.BoardService;
 
@@ -35,30 +38,39 @@ public class BoardController {
 
 	// 게시판 입력
 	@PostMapping("boardInsert")
-	public String insert(Board board) {
-		boardService.boardInsert(board);
+	public String insert(Board board, 
+			@AuthenticationPrincipal PrincipalDetails principal) {
+		boardService.boardInsert(board, principal.getUser());
 		return "redirect:/boardList";
 	}
 
 	// 게시판 상세보기
 	@GetMapping("boardDetail/{no}")
 	public String detail(@PathVariable Long no, Model model) {
-		model.addAttribute("board", boardService.boardDetail(no)); 
+		model.addAttribute("board", boardService.boardDetail(no));
 		return "/board/boardDetail";
 	}
 
 	// 게시판 수정 폼
 	@GetMapping("boardUpdate/{no}")
 	public String update(@PathVariable Long no, Model model) {
-		model.addAttribute("board", boardService.boardDetail(no)); 
+		model.addAttribute("board", boardService.boardDetail(no));
 		return "/board/boardUpdate";
 	}
-	
-	//게시판 수정
+
+	// 게시판 수정
 	@PutMapping("boardUpdate")
 	@ResponseBody
 	public String update(@RequestBody Board board) {
 		boardService.boardUpdate(board);
+		return "success";
+	}
+	
+	//게시판 삭제
+	@DeleteMapping("boardDelete/{no}")
+	@ResponseBody
+	public String delete(@PathVariable Long no) {
+		boardService.boardDelete(no);
 		return "success";
 	}
 

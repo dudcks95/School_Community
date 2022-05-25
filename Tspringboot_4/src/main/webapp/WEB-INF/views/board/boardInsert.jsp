@@ -17,14 +17,24 @@
 				</div>
 
 				<div class="form-group">
+					<label for="sort">분류:</label>
+					<select class="form-control bg-white" id="sort" name="sort">
+						<option>자유게시판</option>
+						<option>자유게시판</option>
+						<option>자유게시판</option>
+					</select>
+				</div>
+
+				<div class="form-group">
 					<label for="writer">작성자:</label>
-					<input type="text" class="form-control" id="writer" placeholder="Enter writer" name="writer" value=""
+					<input type="text" class="form-control" id="writer" value="${principal.user.name }" name="writer"
 						readonly="readonly">
 				</div>
 
 				<div class="form-group">
 					<label for="content">내용:</label>
 					<textarea class="form-control" row="5" id="content" name="content"></textarea>
+
 				</div>
 
 				<button type="submit" class="btn btn-primary btn-sm">글쓰기</button>

@@ -100,7 +100,7 @@
 							<a href="" class="dropdown-item">xx 게시판</a>
 						</div>
 					</div>
-					<a href="/marketInsert" class="nav-item nav-link">장터</a>
+					<a href="/marketList" class="nav-item nav-link">장터</a>
 					<div class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle"
 							data-bs-toggle="dropdown" aria-expanded="false">Blog</a>

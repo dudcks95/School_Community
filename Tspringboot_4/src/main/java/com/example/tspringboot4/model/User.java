@@ -1,5 +1,6 @@
 package com.example.tspringboot4.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +14,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter @Setter @ToString
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "user")
@@ -32,6 +35,5 @@ public class User {
 	private School school;
 	private Long schoolgrade;
 	private String role;
-	
-	
+
 }
