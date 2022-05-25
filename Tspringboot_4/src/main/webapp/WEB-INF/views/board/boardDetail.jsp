@@ -52,7 +52,7 @@
 		</div>
 		<div class="mt-5" align="center">
 			<textarea rows="3" cols="70" id="msg"></textarea>
-			<button type="button" class="btn btn-info btn-sm" id="btnComment">댓글쓰기</button>
+			<button type="button" class="btn btn-info btn-sm" style="margin:0 0 25px 0" id="btnComment">댓글쓰기</button>
 		</div>
 		<div id="replyResult" style="margin:0 60px"></div>
 	</div>

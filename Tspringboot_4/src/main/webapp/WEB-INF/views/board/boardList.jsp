@@ -37,11 +37,18 @@
 						<th class="col-regdate bg-light">날짜</th>
 						<th class="col-writer bg-light">글쓴이</th>
 						<th class="col-hitcount bg-light">조회수</th>
-
 					</tr>
 				</thead>
 
 				<tbody>
+				<tr>
+						<td class="col-num bg-light">번호</td>
+						<td class="col-sort bg-light">학사공지</td>
+						<td class="col-title bg-light">제목</td>
+						<td class="col-regdate bg-light">날짜</td>
+						<td class="col-writer bg-light">글쓴이</td>
+						<td class="col-hitcount bg-light">조회수</td>
+					</tr>
 					<c:forEach items="${boards.content }" var="board" varStatus="st">
 						<tr>
 							<td class="bg-white col-num">${rowNo-st.index }</td>
