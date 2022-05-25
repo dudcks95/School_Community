@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +20,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 @Entity(name = "comment")
 public class Comment {
 	@Id
@@ -30,10 +32,10 @@ public class Comment {
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date c_regdate;
-	@ManyToOne(cascade = CascadeType.REMOVE)
-	@JoinColumn(name ="bnum")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "bnum")
 	private Board board;
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne
 	@JoinColumn(name = "user_no")
 	private User user;
 }

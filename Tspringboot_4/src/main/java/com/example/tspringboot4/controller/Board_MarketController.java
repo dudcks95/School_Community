@@ -21,68 +21,66 @@ import com.example.tspringboot4.model.Board_Market;
 import com.example.tspringboot4.model.User;
 import com.example.tspringboot4.service.Board_MarketService;
 
-
 @Controller
 public class Board_MarketController {
 	@Autowired
 	private Board_MarketService board_MarketService;
-	
-	//장터 게시판 입력 폼
+
+	// 장터 게시판 입력 폼
 	@GetMapping("marketInsert")
 	public String marketInsert() {
 		return "/board_market/marketInsert";
 	}
-	
-	//장터게시판 입력
+
+	// 장터게시판 입력
 	@PostMapping("marketInsert")
-	public String marketInsert(Board_Market mboard,@AuthenticationPrincipal PrincipalDetails prin, HttpSession session) {
-//		System.out.println("result:"+principal.getNo());
-//		Authentication auth =SecurityContextHolder.getContext().getAuthentication(); //1번 방법 : 제일 귀찮음
-//		PrincipalDetails prin =(PrincipalDetails)auth.getPrincipal(); 
+	public String marketInsert(Board_Market mboard, @AuthenticationPrincipal PrincipalDetails prin, HttpSession session) {
+		// System.out.println("result:"+principal.getNo());
+		// Authentication auth =SecurityContextHolder.getContext().getAuthentication();
+		// //1번 방법 : 제일 귀찮음
+		// PrincipalDetails prin =(PrincipalDetails)auth.getPrincipal();
 		// 2번 방법 : 위에 SecurityContextHolder를 가져오는 과정을 생략, 객체 인자값에 Authentication을 추가해줘야함
-		//3번 방법 : @AuthenticationPrincipal을 이용한 principal객체를 바로 사용
-		
+		// 3번 방법 : @AuthenticationPrincipal을 이용한 principal객체를 바로 사용
+
 		System.out.println(prin.getNo());
-		
+
 		User user = new User();
 		user.setNo(prin.getNo());
 		mboard.setUser(user);
-		String uploadFolder = session.getServletContext().getRealPath("/")+"\\resources\\img";
-		board_MarketService.marketInsert(mboard,uploadFolder);
-		return "redirect:/marketList"; //redirect를 사용해야 insert폼에서 맴돌지않음
+		String uploadFolder = session.getServletContext().getRealPath("/") + "\\resources\\img";
+		board_MarketService.marketInsert(mboard, uploadFolder);
+		return "redirect:/marketList"; // redirect를 사용해야 insert폼에서 맴돌지않음
 	}
-	
-	//장터게시판 리스트 출력
+
+	// 장터게시판 리스트 출력
 	@GetMapping("marketList")
 	public String marketList(Model model) {
 		model.addAttribute("products", board_MarketService.marketList());
 		return "/board_market/marketList";
 	}
-	
-	//장터게시판 게시글 상세보기
+
+	// 장터게시판 게시글 상세보기
 	@GetMapping("marketDetail/{mno}")
 	public String marketDetail(@PathVariable Long mno, Model model) {
 		model.addAttribute("product", board_MarketService.marketDetail(mno));
 		return "/board_market/marketDetail";
 	}
-	
-	//장터게시판 게시글 삭제하기
+
+	// 장터게시판 게시글 삭제하기
 	@DeleteMapping("marketDelete/{mno}")
 	@ResponseBody
 	public String marketDelete(@PathVariable Long mno) {
 		board_MarketService.marketDelete(mno);
 		return "success";
 	}
-	
-	//장터게시판 게시글 수정 폼
+
+	// 장터게시판 게시글 수정 폼
 	@GetMapping("marketUpdate/{mno}")
 	public String marketUpdate(@PathVariable Long mno, Model model) {
 		model.addAttribute("product", board_MarketService.marketDetail(mno));
 		return "/board_market/marketUpdate";
 	}
-	
-	//장터게시판 게시글 수정하기
-	
-	
-	
+
+	// 장터게시판 게시글 수정하기
+
 }

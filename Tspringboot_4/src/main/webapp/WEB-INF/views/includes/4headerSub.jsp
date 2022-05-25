@@ -49,7 +49,7 @@
 
 
 				<!-- Topbar Start -->
-				<div class="container-fluid bg-dark px-5 d-none d-lg-block">
+				<!-- <div class="container-fluid bg-dark px-5 d-none d-lg-block">
 					<div class="row gx-0">
 						<div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
 							<div class="d-inline-flex align-items-center" style="height: 45px;">
@@ -74,7 +74,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
 
 
@@ -91,7 +91,7 @@
 						</button>
 						<div class="collapse navbar-collapse" id="navbarCollapse">
 							<div class="navbar-nav ms-auto py-0">
-								<a href="/" class="nav-item nav-link active">Home</a>
+								<a href="/" class="nav-item nav-link">Home</a>
 								<div class="nav-item dropdown">
 									<a href="#" class="nav-item nav-link" data-bs-toggle="dropdown">게시판</a>
 									<div class="dropdown-menu m-0">
@@ -118,30 +118,37 @@
 									</div>
 								</div>
 								<a href="contact.html" class="nav-item nav-link">Contact</a>
-								<sec:authorize access="hasRole('ADMIN')">
-									<a href="/boardList" class="nav-item nav-link">회원관리</a>
-								</sec:authorize>
-								<sec:authorize access="hasRole('USER')">
-									<a href="/boardInsert" class="nav-item nav-link">회원전용</a>
-								</sec:authorize>
 							</div>
 							<butaton type="button" class="btn text-primary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal">
 								<i class="fa fa-search"></i> </butaton>
-							<butaton type="button" class="btn text-primary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal">
-								<i class="fa fa-search"></i> </butaton>
-							<sec:authorize access="isAnonymous()">
-								<a class="nav-item nav-link" href="/login">로그인</a>
-								<a class="nav-item nav-link" href="/join">회원가입</a>
-							</sec:authorize>
-							<sec:authorize access="isAuthenticated()">
-								<a class="nav-item nav-link" href="/myinfo/${principal.user.no }">마이페이지</a>
-								<a class="nav-item nav-link" href="/logout">로그아웃
-									(${principal.user.name}님)</a>
-							</sec:authorize>
 						</div>
-					</nav>
+						<sec:authorize access="hasRole('ADMIN')">
+							<a href="/boardList" class="nav-item nav-link">회원관리</a>
+						</sec:authorize>
+						<sec:authorize access="hasRole('USER')">
+							<a href="/boardInsert" class="nav-item nav-link">회원전용</a>
+						</sec:authorize>
 
-					<!-- <div class="container-fluid bg-primary py-5 bg-header"
+						<butaton type="button" class="btn text-primary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal">
+							<i class="fa fa-search"></i>
+						</butaton>
+						<butaton type="button" class="btn text-primary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal">
+							<i class="fa fa-search"></i>
+						</butaton>
+						<sec:authorize access="isAnonymous()">
+							<a class="nav-item nav-link" href="/login">로그인</a>
+							<a class="nav-item nav-link" href="/join">회원가입</a>
+						</sec:authorize>
+						<sec:authorize access="isAuthenticated()">
+							<a class="nav-item nav-link" href="/myinfo/${principal.user.userNo }">마이페이지</a>
+							<a class="nav-item nav-link" href="/logout">로그아웃
+								(${principal.user.name}님)</a>
+						</sec:authorize>
+
+					</nav>
+				</div>
+
+				<!-- <div class="container-fluid bg-primary py-5 bg-header"
 			style="margin-bottom: 90px;">
 			<div class="row py-5">
 				<div class="col-12 pt-lg-5 mt-lg-5 text-center">

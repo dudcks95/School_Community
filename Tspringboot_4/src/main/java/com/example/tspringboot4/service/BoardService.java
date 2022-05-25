@@ -5,6 +5,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.tspringboot4.model.Board;
@@ -23,8 +25,21 @@ public class BoardService {
 	}
 
 	// 게시글 전체보기
-	public List<Board> findAll() {
-		return boardRepositoroy.findAll();
+	public Page<Board> findAll(String field, String word, Pageable pageable) {
+		if (field.equals("writer"))
+			return boardRepositoroy.findByWriterContaining(word, pageable);
+		if (field.equals("title"))
+			return boardRepositoroy.findByTitleContaining(word, pageable);
+		return boardRepositoroy.findAll(pageable);
+	}
+
+	// 게시글 수
+	public Long boardCount(String field, String word) {
+		if (field.equals("writer"))
+			return boardRepositoroy.cntWriterContaining(word);
+		if (field.equals("title"))
+			return boardRepositoroy.cntTitleContaining(word);
+		return boardRepositoroy.count();
 	}
 
 	// 게시글 삭제
@@ -49,6 +64,5 @@ public class BoardService {
 		board.setHitcount(board.getHitcount() + 1);
 		return board;
 	}
-	//
 
 }

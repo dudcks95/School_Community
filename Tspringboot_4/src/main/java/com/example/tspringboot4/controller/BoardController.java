@@ -1,6 +1,12 @@
 package com.example.tspringboot4.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +22,7 @@ import com.example.tspringboot4.model.Board;
 import com.example.tspringboot4.service.BoardService;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 //@RequestMapping("/board/*")
@@ -25,8 +32,15 @@ public class BoardController {
 	private BoardService boardService;
 
 	@GetMapping("boardList")
-	public String list(Model model) {
-		model.addAttribute("boards", boardService.findAll());
+	public String list(Model model,
+			@PageableDefault(size = 8, sort = "no", direction = Direction.DESC) Pageable pageable,
+			@RequestParam(required = false, defaultValue = "") String field,
+			@RequestParam(required = false, defaultValue = "") String word) {
+		Page<Board> board = boardService.findAll(field, word, pageable);
+		Long count = boardService.boardCount(field, word);
+		model.addAttribute("boards", board);
+		model.addAttribute("count", count);
+		model.addAttribute("rowNo", count - (board.getNumber() * pageable.getPageSize()));
 		return "/board/boardList";
 	}
 

@@ -9,7 +9,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -27,9 +26,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.tspringboot4.model.Board;
+import com.example.tspringboot4.model.Comment;
 import com.example.tspringboot4.model.School;
 
 import com.example.tspringboot4.repository.SchoolRepository;
+import com.example.tspringboot4.service.BoardService;
 import com.example.tspringboot4.service.UserService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,6 +47,7 @@ public class HomeController {
 	private final UserService userService;
 	private final SchoolRepository schoolRepository;
 	private final UserRepository userRepository;
+	private final BoardService boardService;
 
 	@GetMapping("/")
 	public String home() {
@@ -108,11 +111,6 @@ public class HomeController {
 		return "/user/login";
 	}
 
-	// @GetMapping("/login/error")
-	// public String login(Model model) {
-	// model.addAttribute("errorMsg","아이디 또는 비밀번호가 일치하지 않습니다.");
-	// return "/user/login";
-	// }
 	// 아이디 중복확인
 	@GetMapping("/idCheck")
 	public String idCheck() {
@@ -146,23 +144,33 @@ public class HomeController {
 	}
 
 	// 내가 작성한 글폼
-	@GetMapping("mywrite/{no}")
-	public String mywrite(@PathVariable Long no, Model model) {
-		model.addAttribute("user", userService.findById(no));
+	@GetMapping("mywrite/{userNo}")
+	public String mywrite(@PathVariable Long userNo, Model model,
+			@PageableDefault(size = 8, sort = "no", direction = Direction.DESC) Pageable pageable) {
+		Page<Board> board = userService.findByUserNo(userNo, pageable);
+		Long count = userService.writeCount(userNo);
+		model.addAttribute("boards", board);
+		model.addAttribute("count", count);
+		model.addAttribute("rowNo", count - (board.getNumber() * pageable.getPageSize()));
 		return "/user/mywrite";
 	}
 
 	// 내가 작성한 댓글폼
-	@GetMapping("mycomment/{no}")
-	public String mycomment(@PathVariable Long no, Model model) {
-		model.addAttribute("user", userService.findById(no));
+	@GetMapping("mycomment/{userNo}")
+	public String mycomment(@PathVariable Long userNo, Model model,
+			@PageableDefault(size = 8, sort = "cnum", direction = Direction.DESC) Pageable pageable) {
+		Page<Comment> comment = userService.cfindByUserNo(userNo, pageable);
+		Long count = userService.commentCount(userNo);
+		model.addAttribute("comments", comment);
+		model.addAttribute("count", count);
+		model.addAttribute("rowNo", count - (comment.getNumber() * pageable.getPageSize()));
 		return "/user/mycomment";
 	}
 
 	// 회원정보수정폼
-	@GetMapping("myinfo/{no}")
-	public String myinfo(@PathVariable Long no, Model model) {
-		model.addAttribute("user", userService.findById(no));
+	@GetMapping("myinfo/{userNo}")
+	public String myinfo(@PathVariable Long userNo, Model model) {
+		model.addAttribute("user", userService.findById(userNo));
 		return "/user/myinfo";
 	}
 
@@ -175,16 +183,17 @@ public class HomeController {
 	}
 
 	// 회원탈퇴
-	@DeleteMapping("delete/{no}")
+	@DeleteMapping("delete/{userNo}")
 	@ResponseBody
-	public String delete(@PathVariable Long no) {
-		userService.userDelete(no);
+	public String delete(@PathVariable Long userNo) {
+		userService.userDelete(userNo);
 		return "success";
 	}
 
+	// 회원리스트
 	@GetMapping("userlist")
 	public String userlist(Model model,
-			@PageableDefault(size = 8, sort = "no", direction = Direction.DESC) Pageable pageable,
+			@PageableDefault(size = 8, sort = "userNo", direction = Direction.DESC) Pageable pageable,
 			@RequestParam(required = false, defaultValue = "") String field,
 			@RequestParam(required = false, defaultValue = "") String word) {
 		Page<User> lists = userService.userFindList(field, word, pageable);
@@ -195,8 +204,8 @@ public class HomeController {
 		return "/user/userlist";
 	}
 
-	@GetMapping("contact")
-	public String contact() {
-		return "/user/contact";
-	}
+	// @GetMapping("contact")
+	// public String contact() {
+	// return "/user/contact";
+	// }
 }

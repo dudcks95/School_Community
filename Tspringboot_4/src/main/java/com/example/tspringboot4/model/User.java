@@ -2,6 +2,7 @@ package com.example.tspringboot4.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,14 +24,14 @@ import lombok.ToString;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long no;
+	private Long userNo;
 	private String name;
 	private String username;
 	private String password;
 	private String email;
 	private String phone;
 	private String addr;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "schoolName")
 	private School school;
 	private Long schoolgrade;
