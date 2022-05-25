@@ -1,5 +1,7 @@
 package com.example.tspringboot4.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,16 +10,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.tspringboot4.model.Board;
 import com.example.tspringboot4.model.User;
 import com.example.tspringboot4.repository.BoardRepository;
 import com.example.tspringboot4.repository.UserRepository;
 
-import ch.qos.logback.core.encoder.Encoder;
 
 @Service
 public class UserService {
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private BoardRepository boardRepository;
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	private String flag = "yes";
@@ -32,15 +36,15 @@ public class UserService {
 	}
 
 	// 회원 리스트(페이징, 검색 포함, 관리자 전용)
-	public Page<User> userFindList(String field,String word, Pageable pageable){
-		if(field.equals("name"))
+	public Page<User> userFindList(String field, String word, Pageable pageable) {
+		if (field.equals("name"))
 			return userRepository.findByNameContaining(word, pageable);
-		if(field.equals("username"))
+		if (field.equals("username"))
 			return userRepository.findByUsernameContaining(word, pageable);
 		return userRepository.findAll(pageable);
 	}
-		
-	//아이디중복확인
+
+	// 아이디중복확인
 	public String idCheck(String username) {
 		// System.out.println(username);
 		User user = userRepository.findByUsername(username);
@@ -52,17 +56,17 @@ public class UserService {
 
 	// 회원 수 (검색 전, 후)
 	public Long userCount(String field, String word) {
-		if(field.equals("name"))
-			return userRepository.cntNameContataining(word);
-		if(field.equals("username"))
-			return userRepository.cntUsernameContataining(word);
+		if (field.equals("name"))
+			return userRepository.cntNameContaining(word);
+		if (field.equals("username"))
+			return userRepository.cntUsernameContaining(word);
 		return userRepository.count();
 	}
 
 	// 회원 정보 수정
 	@Transactional
 	public void userUpdate(User user) {
-		User u = userRepository.findById(user.getNo()).get();
+		User u = userRepository.findById(user.getUserNo()).get();
 		u.setName(user.getName());
 		u.setUsername(user.getUsername());
 		String rawPassword = user.getPassword();
@@ -76,14 +80,16 @@ public class UserService {
 
 	// 회원 정보 삭제
 	@Transactional
-	public void userDelete(Long no) {
-		userRepository.deleteById(no);
+	public void userDelete(Long userNo) {
+		userRepository.deleteById(userNo);
 	}
 
 	// 회원 정보 상세보기
-	@Transactional
-	public User findById(Long no) {
-		User user = userRepository.findById(no).get();
+	public User findById(Long userNo) {
+		User user = userRepository.findById(userNo).get();
 		return user;
+	}
+	public List<Board> findByUserNo(Long userNo){
+		return boardRepository.findByUserNo(userNo);
 	}
 }

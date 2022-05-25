@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.support.JpaRepositoryImplementation;
 import org.springframework.data.repository.query.Param;
 
+import com.example.tspringboot4.model.Board;
+import com.example.tspringboot4.model.School;
 import com.example.tspringboot4.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -14,10 +16,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	Page<User> findByUsernameContaining(String username, Pageable pageable);
 	
 	@Query(value = "select count(*) from user where name like CONCAT('%',:word,'%')", nativeQuery = true)
-	public Long cntNameContataining(@Param("word") String word);
+	public Long cntNameContaining(@Param("word") String word);
 	@Query(value = "select count(*) from user where username like CONCAT('%',:word,'%')", nativeQuery = true)
-	public Long cntUsernameContataining(@Param("word") String word);
+	public Long cntUsernameContaining(@Param("word") String word);
 	
 	User findByUsername(String username);
+	
+	
 
 }

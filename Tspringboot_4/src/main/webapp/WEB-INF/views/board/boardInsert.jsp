@@ -15,7 +15,7 @@
 					<label for="title">제목:</label> <input type="text" class="form-control" id="title" placeholder="Enter title"
 						name="title">
 				</div>
-				
+
 				<div class="form-group">
 					<label for="sort">분류:</label>
 					<select class="form-control bg-white" id="sort" name="sort">
@@ -30,11 +30,11 @@
 					<input type="text" class="form-control" id="writer" value="${principal.user.name }" name="writer"
 						readonly="readonly">
 				</div>
-				
+
 				<div class="form-group">
 					<label for="content">내용:</label>
 					<textarea class="form-control" row="5" id="content" name="content"></textarea>
-					<!-- #을쓰지 않는 이상 name으로 넘어감, jQuery는 id를 사용함 -->
+
 				</div>
 
 				<button type="submit" class="btn btn-primary btn-sm">글쓰기</button>

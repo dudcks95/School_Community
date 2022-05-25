@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../includes/4headerSub.jsp"%>
+<div class="container-fluid bg-primary py-5 bg-header"
+	style="margin-bottom: 90px;">
+	<div class="row ">
+		<div class="col-12 text-center"></div>
+	</div>
+</div>
 <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
 	<div class="container py-5">
 		<div class="row g-5">

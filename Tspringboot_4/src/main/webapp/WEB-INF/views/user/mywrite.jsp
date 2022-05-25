@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../includes/4headerSub.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<div class="container-fluid bg-primary py-5 bg-header"
+	style="margin-bottom: 90px;">
+	<div class="row ">
+		<div class="col-12 text-center"></div>
+	</div>
+</div>
 <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
 	<div class="container py-5">
 		<div class="row g-5">
@@ -8,7 +15,7 @@
 
 				<!-- Category Start -->
 				<div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-					<%@ include file="../includes/categori.jsp" %>
+					<%@ include file="../includes/categori.jsp"%>
 				</div>
 				<!-- Category End -->
 			</div>
@@ -30,14 +37,18 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td class="bg-white col-num">1</td>
-								<td class="bg-white col-sort">자유게시판</td>
-								<td class="bg-white col-title">안녕하세요 새로들어온 강하나입니다</td>
-								<td class="bg-white col-regdate">2022-05-20</td>
-								<td class="bg-white col-writer">강하나</td>
-								<td class="bg-white col-hitcount">12</td>
-							</tr>
+							<c:forEach items="${boards }" var="board">
+								<tr>
+									<td class="bg-white col-num">${board.user.userNo }</td>
+									<td class="bg-white col-sort">${board.sort }</td>
+									<td class="bg-white col-title"><a
+										href="/boardDetail/${board.no}">${board.title }</a></td>
+									<td class="bg-white col-regdate"><fmt:formatDate
+											value="${board.regdate }" pattern="yyyy-MM-dd" /></td>
+									<td class="bg-white col-writer">${board.writer }</td>
+									<td class="bg-white col-hitcount">${board.hitcount }</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>

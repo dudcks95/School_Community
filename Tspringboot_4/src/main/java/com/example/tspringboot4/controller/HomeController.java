@@ -9,7 +9,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -27,9 +26,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.tspringboot4.model.Board;
 import com.example.tspringboot4.model.School;
 
 import com.example.tspringboot4.repository.SchoolRepository;
+import com.example.tspringboot4.service.BoardService;
 import com.example.tspringboot4.service.UserService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,6 +46,8 @@ public class HomeController {
 	private final UserService userService;
 	private final SchoolRepository schoolRepository;
 	private final UserRepository userRepository;
+	private final BoardService boardService;
+	
 
 	@GetMapping("/")
 	public String home() {
@@ -108,11 +111,6 @@ public class HomeController {
 		return "/user/login";
 	}
 
-	// @GetMapping("/login/error")
-	// public String login(Model model) {
-	// model.addAttribute("errorMsg","아이디 또는 비밀번호가 일치하지 않습니다.");
-	// return "/user/login";
-	// }
 	// 아이디 중복확인
 	@GetMapping("/idCheck")
 	public String idCheck() {
@@ -136,7 +134,7 @@ public class HomeController {
 	@ResponseBody
 	public String join(@RequestBody User user) {
 		School school = new School();
-		school.setSchoolName(user.getSchool().getSchoolName());
+		school.setSchoolId(user.getSchool().getSchoolId());
 		user.setSchool(school);
 		if (userRepository.findByUsername(user.getUsername()) != null) {
 			return "fail";
@@ -146,23 +144,25 @@ public class HomeController {
 	}
 
 	// 내가 작성한 글폼
-	@GetMapping("mywrite/{no}")
-	public String mywrite(@PathVariable Long no, Model model) {
-		model.addAttribute("user", userService.findById(no));
+	@GetMapping("mywrite/{userNo}")
+	public String mywrite(@PathVariable Long userNo, Model model) {
+		System.out.println("userNo:"+userNo);
+		System.out.println("userSer:"+userService.findByUserNo(userNo));
+		model.addAttribute("boards", userService.findByUserNo(userNo));
 		return "/user/mywrite";
 	}
 
 	// 내가 작성한 댓글폼
-	@GetMapping("mycomment/{no}")
-	public String mycomment(@PathVariable Long no, Model model) {
-		model.addAttribute("user", userService.findById(no));
+	@GetMapping("mycomment/{userNo}")
+	public String mycomment(@PathVariable Long userNo, Model model) {
+		model.addAttribute("user", userService.findById(userNo));
 		return "/user/mycomment";
 	}
 
 	// 회원정보수정폼
-	@GetMapping("myinfo/{no}")
-	public String myinfo(@PathVariable Long no, Model model) {
-		model.addAttribute("user", userService.findById(no));
+	@GetMapping("myinfo/{userNo}")
+	public String myinfo(@PathVariable Long userNo, Model model) {
+		model.addAttribute("user", userService.findById(userNo));
 		return "/user/myinfo";
 	}
 
@@ -175,24 +175,23 @@ public class HomeController {
 	}
 
 	// 회원탈퇴
-	@DeleteMapping("delete/{no}")
+	@DeleteMapping("delete/{userNo}")
 	@ResponseBody
-	public String delete(@PathVariable Long no) {
-		userService.userDelete(no);
+	public String delete(@PathVariable Long userNo) {
+		userService.userDelete(userNo);
 		return "success";
 	}
-	
+
 	@GetMapping("userlist")
 	public String userlist(Model model,
-			@PageableDefault(size = 8, sort = "no",	direction = Direction.DESC) Pageable pageable,
+			@PageableDefault(size = 8, sort = "userNo", direction = Direction.DESC) Pageable pageable,
 			@RequestParam(required = false, defaultValue = "") String field,
-			@RequestParam(required = false, defaultValue = "") String word){
-		Page<User> lists=userService.userFindList(field,word, pageable);
-		Long count=userService.userCount(field,word);
+			@RequestParam(required = false, defaultValue = "") String word) {
+		Page<User> lists = userService.userFindList(field, word, pageable);
+		Long count = userService.userCount(field, word);
 		model.addAttribute("users", lists);
 		model.addAttribute("count", count);
-		model.addAttribute("rowNo", count-(lists.getNumber()*pageable.getPageSize()));
+		model.addAttribute("rowNo", count - (lists.getNumber() * pageable.getPageSize()));
 		return "/user/userlist";
 	}
-	
 }

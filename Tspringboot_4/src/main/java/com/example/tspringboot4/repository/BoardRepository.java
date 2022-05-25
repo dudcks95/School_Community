@@ -1,9 +1,28 @@
 package com.example.tspringboot4.repository;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.example.tspringboot4.model.Board;
 
 public interface BoardRepository extends JpaRepository<Board, Long>{
-
+	//이름검색
+	Page<Board> findByWriterContaining(String writer, Pageable pageable);
+	//제목 검색
+	Page<Board> findByTitleContaining(String title, Pageable pageable);
+	//이름검색 수
+	@Query(value = "select count(*) from board where writer like CONCAT('%',:word,'%')",nativeQuery = true)
+	public Long cntWriterContaining(@Param("word") String word);
+	//제목 검색수
+	@Query(value = "select count(*) from board where title like CONCAT('%',:word,'%')",nativeQuery = true)
+	public Long cntTitleContaining(@Param("word") String word);
+	
+	//JPQL
+	@Query("select sc from board sc where user_no=?1")
+	public List<Board> findByUserNo(Long userNo);
 }
