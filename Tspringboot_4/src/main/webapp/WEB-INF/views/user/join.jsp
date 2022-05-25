@@ -45,10 +45,10 @@
 					</div>
 
 					<div class="col-sm-12">
-						<label for="schoolName">재학중인 학교:</label> <select class="form-control bg-light border-0" id="schoolName"
-							name="schoolName" style="height: 55px;">
+						<label for="schoolName">재학중인 학교:</label> <select class="form-control bg-light border-0" id="schoolId"
+							name="schoolId" style="height: 55px;">
 							<c:forEach items="${schools}" var="school">
-								<option>${school.schoolName }</option>
+								<option value="${school.schoolId }">${school.schoolName }</option>
 							</c:forEach>
 						</select>
 					</div>
@@ -121,7 +121,7 @@
 						"email": $("#email").val(),
 						"phone": $("#phone").val(),
 						"school": {
-							"schoolName": $("#schoolName").val()
+							"schoolId": $("#schoolId").val()
 						},
 						"schoolgrade": $("input:radio[name='schoolgrade']:checked").val()
 					}

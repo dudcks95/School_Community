@@ -29,6 +29,7 @@ public class UserService {
 		user.setPassword(encPassword);
 		user.setRole("ROLE_USER");
 		userRepository.save(user);
+		
 	}
 
 	// 회원 리스트(페이징, 검색 포함, 관리자 전용)
