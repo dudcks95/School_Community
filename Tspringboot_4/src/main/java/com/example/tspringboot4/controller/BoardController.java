@@ -78,11 +78,6 @@ public class BoardController {
 		boardService.boardUpdate(board);
 		return "success";
 	}
-	//게시글
-	@GetMapping("list/{userNo}")
-	public List<Board> list(@PathVariable Long userNo){
-		List<Board> blist=boardService.list(userNo);
-		return blist;
-	}
+	
 
 }

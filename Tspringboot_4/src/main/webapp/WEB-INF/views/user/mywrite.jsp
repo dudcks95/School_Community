@@ -22,35 +22,47 @@
 			<div class="col-lg-9">
 				<div
 					class="section-title section-title-sm position-relative pb-3 mb-4">
-					<h3 class="mb-0">내가 작성한 글</h3>
+					<h3 class="mb-0">내가 작성한 글(${count })</h3>
 				</div>
-				<div class="bg-light">
+				<div class="bg-white">
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th class="col-num">번호</th>
-								<th class="col-sort">분류</th>
-								<th class="col-title">제목</th>
-								<th class="col-regdate">날짜</th>
-								<th class="col-writer">작성자</th>
-								<th class="col-hitcount">조회수</th>
+								<th class="col-num bg-light">번호</th>
+								<th class="col-sort bg-light">분류</th>
+								<th class="col-title bg-light">제목</th>
+								<th class="col-regdate bg-light">날짜</th>
+								<th class="col-writer bg-light">작성자</th>
+								<th class="col-hitcount bg-light">조회수</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${boards }" var="board">
+							<c:forEach items="${boards.content }" var="board" varStatus="st">
 								<tr>
-									<td class="bg-white col-num">${board.user.userNo }</td>
-									<td class="bg-white col-sort">${board.sort }</td>
-									<td class="bg-white col-title"><a
+									<td class="col-num">${rowNo-st.index }</td>
+									<td class="col-sort">${board.sort }</td>
+									<td class="col-title" style="text-align: left"><a
 										href="/boardDetail/${board.no}">${board.title }</a></td>
-									<td class="bg-white col-regdate"><fmt:formatDate
+									<td class="col-regdate"><fmt:formatDate
 											value="${board.regdate }" pattern="yyyy-MM-dd" /></td>
-									<td class="bg-white col-writer">${board.writer }</td>
-									<td class="bg-white col-hitcount">${board.hitcount }</td>
+									<td class="col-writer">${board.writer }</td>
+									<td class="col-hitcount">${board.hitcount }</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
+					<div class="d-flex justify-content-between mt-5 mr-auto bg-white">
+						<ul class="pagination">
+							<c:if test="${boards.first==false }">
+								<li class="page-item"><a class="page-link"
+									href="?page=${boards.number-1 }">이전</a></li>
+							</c:if>
+							<c:if test="${boards.last==false }">
+								<li class="page-item"><a class="page-link"
+									href="?page=${boards.number+1 }">다음</a></li>
+							</c:if>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>

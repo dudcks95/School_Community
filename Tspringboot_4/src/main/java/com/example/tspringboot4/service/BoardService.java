@@ -63,9 +63,6 @@ public class BoardService {
 		board.setHitcount(board.getHitcount() + 1);
 		return board;
 	}
-	//게시글
-	public List<Board> list(Long userNo){
-		return boardRepositoroy.findByUserNo(userNo);
-	}
+	
 
 }

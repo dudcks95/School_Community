@@ -11,8 +11,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.tspringboot4.model.Board;
+import com.example.tspringboot4.model.Comment;
 import com.example.tspringboot4.model.User;
 import com.example.tspringboot4.repository.BoardRepository;
+import com.example.tspringboot4.repository.CommentRepository;
 import com.example.tspringboot4.repository.UserRepository;
 
 
@@ -22,6 +24,8 @@ public class UserService {
 	private UserRepository userRepository;
 	@Autowired
 	private BoardRepository boardRepository;
+	@Autowired
+	private CommentRepository commentRepository;
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	private String flag = "yes";
@@ -43,6 +47,23 @@ public class UserService {
 			return userRepository.findByUsernameContaining(word, pageable);
 		return userRepository.findAll(pageable);
 	}
+	//내가작성한글
+	public Page<Board> findByUserNo(Long userNo, Pageable pageable){
+		return boardRepository.findByUserNo(userNo,pageable);
+	}
+	//내가작성한 글 수
+	public Long writeCount(Long userNo) {
+		return boardRepository.findByUserNo(userNo);
+	}
+	
+	//내가 작성한 댓글
+	public Page<Comment> cfindByUserNo(Long userNo, Pageable pageable){
+		return commentRepository.findByUserNo(userNo,pageable);
+	}
+	//내가작성한 댓글 수
+		public Long commentCount(Long userNo) {
+			return commentRepository.findByUserNo(userNo);
+		}
 
 	// 아이디중복확인
 	public String idCheck(String username) {
@@ -62,6 +83,8 @@ public class UserService {
 			return userRepository.cntUsernameContaining(word);
 		return userRepository.count();
 	}
+	
+	
 
 	// 회원 정보 수정
 	@Transactional
@@ -89,7 +112,5 @@ public class UserService {
 		User user = userRepository.findById(userNo).get();
 		return user;
 	}
-	public List<Board> findByUserNo(Long userNo){
-		return boardRepository.findByUserNo(userNo);
-	}
+	
 }

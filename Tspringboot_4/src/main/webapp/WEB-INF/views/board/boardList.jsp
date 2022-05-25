@@ -46,7 +46,7 @@
 						<tr>
 							<td class="bg-white col-num">${rowNo-st.index }</td>
 							<td class="bg-white col-sort">${board.sort }</td>
-							<td class="bg-white col-title"><a
+							<td class="bg-white col-title" style="text-align:left"><a
 								href="/boardDetail/${board.no}">${board.title }</a></td>
 							<td class="bg-white col-regdate"><fmt:formatDate
 									value="${board.regdate }" pattern="yyyy-MM-dd" /></td>

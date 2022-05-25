@@ -101,7 +101,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<div class="navbar-nav ms-auto py-0">
-					<a href="/WEB-INF/views/home.jsp" class="nav-item nav-link active">Home</a>
+					<a href="/" class="nav-item nav-link">Home</a>
 					<div class="nav-item dropdown">
 						<a href="/boardList" class="nav-item nav-link"
 							data-bs-toggle="dropdown">게시판</a>

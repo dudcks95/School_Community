@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.tspringboot4.model.Board;
+import com.example.tspringboot4.model.Comment;
 import com.example.tspringboot4.model.School;
 
 import com.example.tspringboot4.repository.SchoolRepository;
@@ -145,17 +146,25 @@ public class HomeController {
 
 	// 내가 작성한 글폼
 	@GetMapping("mywrite/{userNo}")
-	public String mywrite(@PathVariable Long userNo, Model model) {
-		System.out.println("userNo:"+userNo);
-		System.out.println("userSer:"+userService.findByUserNo(userNo));
-		model.addAttribute("boards", userService.findByUserNo(userNo));
+	public String mywrite(@PathVariable Long userNo, Model model,
+			@PageableDefault(size = 8, sort = "no", direction = Direction.DESC)Pageable pageable) {
+		Page<Board> board=userService.findByUserNo(userNo,pageable);
+		Long count=userService.writeCount(userNo);
+		model.addAttribute("boards", board);
+		model.addAttribute("count", count);
+		model.addAttribute("rowNo", count - (board.getNumber() * pageable.getPageSize()));
 		return "/user/mywrite";
 	}
 
 	// 내가 작성한 댓글폼
 	@GetMapping("mycomment/{userNo}")
-	public String mycomment(@PathVariable Long userNo, Model model) {
-		model.addAttribute("user", userService.findById(userNo));
+	public String mycomment(@PathVariable Long userNo, Model model,
+			@PageableDefault(size = 8, sort = "cnum", direction = Direction.DESC)Pageable pageable) {
+		Page<Comment> comment=userService.cfindByUserNo(userNo, pageable);
+		Long count=userService.commentCount(userNo);
+		model.addAttribute("comments", comment);
+		model.addAttribute("count", count);
+		model.addAttribute("rowNo", count - (comment.getNumber() * pageable.getPageSize()));
 		return "/user/mycomment";
 	}
 
@@ -181,7 +190,7 @@ public class HomeController {
 		userService.userDelete(userNo);
 		return "success";
 	}
-
+	//회원리스트
 	@GetMapping("userlist")
 	public String userlist(Model model,
 			@PageableDefault(size = 8, sort = "userNo", direction = Direction.DESC) Pageable pageable,
