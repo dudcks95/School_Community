@@ -40,7 +40,7 @@ public class PrincipalDetails implements UserDetails{
 	}
 	
 	public Long getNo() {
-		return user.getNo();
+		return user.getUserNo();
 	}
 
 	@Override

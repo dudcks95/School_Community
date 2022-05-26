@@ -30,10 +30,10 @@ public class Comment_Market {
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date m_c_regdate;
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne
 	@JoinColumn(name = "m_bnum")
 	private Board_Market board_market;
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne
 	@JoinColumn(name = "user_no")
 	private User user;
 	

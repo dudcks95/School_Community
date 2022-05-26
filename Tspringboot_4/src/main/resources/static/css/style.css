@@ -521,12 +521,14 @@ h6,
 }
 .col-content1{
 	width:35%;
-	text-align:center;
+	
 }
-.col-email,
-.col-title1{
+.col-email{
 	width:30%;
 	text-align:center;
+}
+.col-title1{
+	width:30%;	
 }
 .col-name,
 .col-writer1{
@@ -535,5 +537,16 @@ h6,
 }
 .col-regdate1{
 	width:17.5%;
+	text-align:center;
+}
+.col-hitcount2,
+.col-regdate2{
+	text-align:right;
+}
+.col-ccontent{
+	width:60%;
+}
+.col-cregdate{
+	width:20%;
 	text-align:center;
 }

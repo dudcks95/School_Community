@@ -32,7 +32,7 @@ public class Board_Market {
 	private String m_writer;
 	private String m_pcontent;
 	private Long price;
-	private Long m_hitcount;
+	private Long hitcount;
 	
 	@Transient
 	private MultipartFile upload; //업로드할 파일
@@ -43,13 +43,13 @@ public class Board_Market {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date m_regdate;
 	
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne
 	@JoinColumn(name = "user_no")
 	private User user;
 	
 	@PrePersist
 	public void prePerist() {
-		this.m_hitcount = this.m_hitcount == null?0 : this.m_hitcount;
+		this.hitcount = this.hitcount == null?0 : this.hitcount;
 		
 	}
 }
