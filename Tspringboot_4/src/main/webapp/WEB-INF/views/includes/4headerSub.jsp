@@ -38,6 +38,11 @@
 				<link href="/css/style.css" rel="stylesheet">
 
 
+				<!-- Icon Font Stylesheet -->
+				<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+				<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+
 				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 			</head>
 			<sec:authorize access="isAuthenticated()">
@@ -45,11 +50,12 @@
 				<sec:authentication property="principal" var="principal" />
 			</sec:authorize>
 
+
 			<body>
 
 
 				<!-- Topbar Start -->
-				<!-- <div class="container-fluid bg-dark px-5 d-none d-lg-block">
+				<div class="container-fluid bg-dark px-5 d-none d-lg-block">
 					<div class="row gx-0">
 						<div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
 							<div class="d-inline-flex align-items-center" style="height: 45px;">
@@ -74,7 +80,7 @@
 							</div>
 						</div>
 					</div>
-				</div> -->
+				</div>
 
 
 
@@ -95,8 +101,7 @@
 								<div class="nav-item dropdown">
 									<a href="#" class="nav-item nav-link" data-bs-toggle="dropdown">게시판</a>
 									<div class="dropdown-menu m-0">
-										<a href="/boardList" class="dropdown-item">자유 게시판</a>
-										<a href="" class="dropdown-item">xx 게시판</a>
+										<a href="/boardList" class="dropdown-item">자유 게시판</a> <a href="" class="dropdown-item">xx 게시판</a>
 									</div>
 								</div>
 								<a href="/marketList" class="nav-item nav-link">장터</a>
@@ -119,8 +124,7 @@
 								</div>
 								<a href="contact.html" class="nav-item nav-link">Contact</a>
 							</div>
-							<butaton type="button" class="btn text-primary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal">
-								<i class="fa fa-search"></i> </butaton>
+
 						</div>
 						<sec:authorize access="hasRole('ADMIN')">
 							<a href="/boardList" class="nav-item nav-link">회원관리</a>
@@ -129,12 +133,9 @@
 							<a href="/boardInsert" class="nav-item nav-link">회원전용</a>
 						</sec:authorize>
 
+						<!-- 검색창  -->
 						<butaton type="button" class="btn text-primary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal">
-							<i class="fa fa-search"></i>
-						</butaton>
-						<butaton type="button" class="btn text-primary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal">
-							<i class="fa fa-search"></i>
-						</butaton>
+							<i class="fa fa-search"></i> </butaton>
 						<sec:authorize access="isAnonymous()">
 							<a class="nav-item nav-link" href="/login">로그인</a>
 							<a class="nav-item nav-link" href="/join">회원가입</a>
@@ -161,6 +162,17 @@
 		</div> -->
 				</div>
 				<!-- Navbar End -->
+				<!-- JavaScript Libraries -->
+				<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+				<script src="/lib/wow/wow.min.js"></script>
+				<script src="/lib/easing/easing.min.js"></script>
+				<script src="/lib/waypoints/waypoints.min.js"></script>
+				<script src="/lib/counterup/counterup.min.js"></script>
+				<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
+				<!-- Template Javascript -->
+				<script src="/js/main.js"></script>
 			</body>
 
 			</html>

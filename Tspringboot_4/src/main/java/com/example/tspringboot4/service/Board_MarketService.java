@@ -7,6 +7,9 @@ import java.util.UUID;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,7 +37,9 @@ public class Board_MarketService {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+
 		}
+		board_MarketRepository.save(mboard);
 	}
 
 	// 장터게시판 리스트
@@ -42,19 +47,41 @@ public class Board_MarketService {
 		return board_MarketRepository.findAll();
 	}
 
+	// 리스트 조회수 순서
+	public List<Board_Market> hitCountList() {
+		return board_MarketRepository.findAll(Sort.by(Sort.Direction.DESC, "mHitcount"));
+		// return null;
+	}
+
 	// 장터게시판 상세보기
 	@Transactional
 	public Board_Market marketDetail(Long mno) {
 		Board_Market mboard = board_MarketRepository.findById(mno).get();
-		mboard.setM_hitcount(mboard.getM_hitcount() + 1);
+		mboard.setHitcount(mboard.getHitcount() + 1);
 		return mboard;
 	}
 
 	// 장터게시판 수정
 	@Transactional
-	public void marketUpdate(Board_Market mboard) {
+	public void marketUpdate(Board_Market mboard, String uploadFolder) {
 		Board_Market m = board_MarketRepository.findById(mboard.getMno()).get();
-		// m.setM_pname();
+		UUID uuid = UUID.randomUUID();
+		MultipartFile f = mboard.getUpload(); // 업로드할 이미지 파일
+		String uploadFileName = "";
+		if (!f.isEmpty()) { // 파일 선택창이 안비었을 때
+			uploadFileName = uuid.toString() + "_" + f.getOriginalFilename();
+			File saveFile = new File(uploadFolder, uploadFileName);
+			try {
+				f.transferTo(saveFile); // 이미지 파일을 폴더에 저장
+				mboard.setM_pimage(uploadFileName); // db에 이름 저장
+				m.setM_pimage(mboard.getM_pimage());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		m.setM_pname(mboard.getM_pname());
+		m.setM_pcontent(mboard.getM_pcontent());
+		m.setPrice(mboard.getPrice());
 	}
 
 	// 장터게시판 삭제

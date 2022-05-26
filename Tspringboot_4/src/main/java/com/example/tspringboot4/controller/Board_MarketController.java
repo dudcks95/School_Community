@@ -5,6 +5,9 @@ import java.security.Principal;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.tspringboot4.config.auth.PrincipalDetails;
@@ -45,7 +50,7 @@ public class Board_MarketController {
 		System.out.println(prin.getNo());
 
 		User user = new User();
-		user.setNo(prin.getNo());
+		user.setUserNo(prin.getNo());
 		mboard.setUser(user);
 		String uploadFolder = session.getServletContext().getRealPath("/") + "\\resources\\img";
 		board_MarketService.marketInsert(mboard, uploadFolder);
@@ -56,6 +61,7 @@ public class Board_MarketController {
 	@GetMapping("marketList")
 	public String marketList(Model model) {
 		model.addAttribute("products", board_MarketService.marketList());
+		model.addAttribute("hits", board_MarketService.hitCountList());
 		return "/board_market/marketList";
 	}
 
@@ -63,6 +69,7 @@ public class Board_MarketController {
 	@GetMapping("marketDetail/{mno}")
 	public String marketDetail(@PathVariable Long mno, Model model) {
 		model.addAttribute("product", board_MarketService.marketDetail(mno));
+		
 		return "/board_market/marketDetail";
 	}
 
@@ -82,5 +89,12 @@ public class Board_MarketController {
 	}
 
 	// 장터게시판 게시글 수정하기
+	@PostMapping("marketUpdate")
+	@ResponseBody
+	public String marketUpdate(Board_Market mboard, HttpSession session) {
+		String uploadFolder = session.getServletContext().getRealPath("/") + "\\resources\\img";
+		board_MarketService.marketUpdate(mboard,uploadFolder);
+		return "success";
+	}
 
 }

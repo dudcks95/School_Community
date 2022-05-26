@@ -7,7 +7,7 @@
 		</div>
 		<div class="container mt-5">
 			<h1 align="center">회원가입</h1>
-			<div class="rounded h-100 flex align-items-center p-5 wow zoomIn" data-wow-delay="0.9s"
+			<div class="rounded h-100 flex align-items-center p-5 wow" data-wow-delay="0.9s"
 				style="width: 70%; margin: 0 auto">
 				<div class="row g-3">
 					<div class="col-sm-12">
