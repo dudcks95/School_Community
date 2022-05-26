@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.tspringboot4.model.Board;
+import com.example.tspringboot4.model.Board_Market;
 import com.example.tspringboot4.model.Comment;
 import com.example.tspringboot4.model.School;
 
@@ -48,7 +49,6 @@ public class HomeController {
 	private final SchoolRepository schoolRepository;
 	private final UserRepository userRepository;
 	private final BoardService boardService;
-	
 
 	@GetMapping("/")
 	public String home() {
@@ -147,9 +147,11 @@ public class HomeController {
 	// 내가 작성한 글폼
 	@GetMapping("mywrite/{userNo}")
 	public String mywrite(@PathVariable Long userNo, Model model,
-			@PageableDefault(size = 8, sort = "no", direction = Direction.DESC)Pageable pageable) {
-		Page<Board> board=userService.findByUserNo(userNo,pageable);
-		Long count=userService.writeCount(userNo);
+			@PageableDefault(size = 8, sort = "no", direction = Direction.DESC) Pageable pageable,
+			@RequestParam(required = false, defaultValue = "") String field,
+			@RequestParam(required = false, defaultValue = "") String word) {
+		Page<Board> board = userService.findByUserNo(userNo, field, word, pageable);
+		Long count = userService.writeCount(userNo, field, word);
 		model.addAttribute("boards", board);
 		model.addAttribute("count", count);
 		model.addAttribute("rowNo", count - (board.getNumber() * pageable.getPageSize()));
@@ -159,13 +161,26 @@ public class HomeController {
 	// 내가 작성한 댓글폼
 	@GetMapping("mycomment/{userNo}")
 	public String mycomment(@PathVariable Long userNo, Model model,
-			@PageableDefault(size = 8, sort = "cnum", direction = Direction.DESC)Pageable pageable) {
-		Page<Comment> comment=userService.cfindByUserNo(userNo, pageable);
-		Long count=userService.commentCount(userNo);
+			@PageableDefault(size = 8, sort = "cnum", direction = Direction.DESC) Pageable pageable) {
+		Page<Comment> comment = userService.cfindByUserNo(userNo, pageable);
+		Long count = userService.commentCount(userNo);
 		model.addAttribute("comments", comment);
 		model.addAttribute("count", count);
 		model.addAttribute("rowNo", count - (comment.getNumber() * pageable.getPageSize()));
 		return "/user/mycomment";
+	}
+	
+	//나의 장터
+	@GetMapping("mymarket/{userNo}")
+	public String mymarket(@PathVariable Long userNo, Model model,
+			@PageableDefault(size = 6, sort = "mno", direction = Direction.DESC) Pageable pageable,
+			@RequestParam(required = false, defaultValue = "") String field,
+			@RequestParam(required = false, defaultValue = "") String word) {
+		Page<Board_Market> bm=userService.mfindByUserNo(userNo, field, word, pageable);
+		Long count=userService.marketCount(userNo, field, word);
+		model.addAttribute("products", bm);
+		model.addAttribute("count", count);
+		return "/user/mymarket";
 	}
 
 	// 회원정보수정폼
@@ -190,7 +205,8 @@ public class HomeController {
 		userService.userDelete(userNo);
 		return "success";
 	}
-	//회원리스트
+
+	// 회원리스트
 	@GetMapping("userlist")
 	public String userlist(Model model,
 			@PageableDefault(size = 8, sort = "userNo", direction = Direction.DESC) Pageable pageable,
@@ -201,6 +217,7 @@ public class HomeController {
 		model.addAttribute("users", lists);
 		model.addAttribute("count", count);
 		model.addAttribute("rowNo", count - (lists.getNumber() * pageable.getPageSize()));
-		return "/user/userlist";
+		return "/admin/userlist";
 	}
+
 }

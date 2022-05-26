@@ -36,11 +36,11 @@ public class BoardController {
 			@PageableDefault(size = 8, sort = "no", direction = Direction.DESC) Pageable pageable,
 			@RequestParam(required = false, defaultValue = "") String field,
 			@RequestParam(required = false, defaultValue = "") String word) {
-		Page<Board> board=boardService.findAll(field, word, pageable);
-		Long count=boardService.boardCount(field, word);
+		Page<Board> board = boardService.findAll(field, word, pageable);
+		Long count = boardService.boardCount(field, word);
 		model.addAttribute("boards", board);
 		model.addAttribute("count", count);
-		model.addAttribute("rowNo", count-(board.getNumber()*pageable.getPageSize()));
+		model.addAttribute("rowNo", count - (board.getNumber() * pageable.getPageSize()));
 		return "/board/boardList";
 	}
 
@@ -79,12 +79,25 @@ public class BoardController {
 		boardService.boardUpdate(board);
 		return "success";
 	}
-	//게시글삭제
+
+	// 게시판 삭제
 	@DeleteMapping("boardDelete/{no}")
 	@ResponseBody
 	public String delete(@PathVariable Long no) {
 		boardService.boardDelete(no);
 		return "success";
 	}
-
+	//관리자 게시글보기
+	@GetMapping("adboard")
+	public String adlist(Model model,
+			@PageableDefault(size = 8, sort = "no", direction = Direction.DESC) Pageable pageable,
+			@RequestParam(required = false, defaultValue = "") String field,
+			@RequestParam(required = false, defaultValue = "") String word) {
+		Page<Board> board = boardService.findAll(field, word, pageable);
+		Long count = boardService.boardCount(field, word);
+		model.addAttribute("boards", board);
+		model.addAttribute("count", count);
+		model.addAttribute("rowNo", count - (board.getNumber() * pageable.getPageSize()));
+		return "/board/boardList";
+	}
 }

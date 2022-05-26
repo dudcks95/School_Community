@@ -39,10 +39,9 @@
 							</thead>
 
 							<tbody>
-							
-							<c:forEach items="${boards.content }" var="board" varStatus="st">
-							
-									<tr>
+								<c:forEach items="${boards.content }" var="board" varStatus="st">
+								
+								<tr>
 										<td class="bg-white col-num">${rowNo-st.index }</td>
 										<td class="bg-white col-sort">${board.sort }</td>
 										<td class="bg-white col-title" style="text-align:left"><a
@@ -52,8 +51,9 @@
 										</td>
 										<td class="bg-white col-writer">${board.writer }</td>
 										<td class="bg-white col-hitcount">${board.hitcount }</td>
-									</tr>																							
+									</tr>
 								</c:forEach>
+								
 							</tbody>
 						</table>
 						<div class="d-flex justify-content-between mt-5 mr-auto bg-white">

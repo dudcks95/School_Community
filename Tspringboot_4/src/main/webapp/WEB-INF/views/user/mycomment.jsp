@@ -41,7 +41,8 @@
 								<tr>
 									<td class="col-num1">${rowNo-st.index }</td>
 									<td class="col-title1"><a
-										href="/boardDetail/${comment.board.no}">${comment.board.title }</a></td>
+										href="/boardDetail/${comment.board.no}">${comment.board.title }</a>
+									</td>
 									<td class="col-content1">${comment.c_content }</td>
 									<td class="col-writer1">${comment.user.name }</td>
 									<td class="col-regdate1"><fmt:formatDate

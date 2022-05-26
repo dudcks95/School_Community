@@ -11,12 +11,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.tspringboot4.model.Board;
+import com.example.tspringboot4.model.Board_Market;
 import com.example.tspringboot4.model.Comment;
 import com.example.tspringboot4.model.User;
 import com.example.tspringboot4.repository.BoardRepository;
+import com.example.tspringboot4.repository.Board_MarketRepository;
 import com.example.tspringboot4.repository.CommentRepository;
 import com.example.tspringboot4.repository.UserRepository;
-
 
 @Service
 public class UserService {
@@ -26,6 +27,8 @@ public class UserService {
 	private BoardRepository boardRepository;
 	@Autowired
 	private CommentRepository commentRepository;
+	@Autowired
+	private Board_MarketRepository bmRepository;
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	private String flag = "yes";
@@ -37,6 +40,7 @@ public class UserService {
 		user.setPassword(encPassword);
 		user.setRole("ROLE_USER");
 		userRepository.save(user);
+
 	}
 
 	// 회원 리스트(페이징, 검색 포함, 관리자 전용)
@@ -47,23 +51,42 @@ public class UserService {
 			return userRepository.findByUsernameContaining(word, pageable);
 		return userRepository.findAll(pageable);
 	}
-	//내가작성한글
-	public Page<Board> findByUserNo(Long userNo, Pageable pageable){
-		return boardRepository.findByUserNo(userNo,pageable);
+
+	// 내가작성한글
+	public Page<Board> findByUserNo(Long userNo,String field, String word, Pageable pageable) {
+		if (field.equals("title"))
+			return boardRepository.findByUserNoContaing(userNo, word, pageable);
+		return boardRepository.findByUserNo(userNo, pageable);
 	}
-	//내가작성한 글 수
-	public Long writeCount(Long userNo) {
+
+	// 내가작성한 글 수
+	public Long writeCount(Long userNo,String field, String word) {
+		if (field.equals("title"))
+			return boardRepository.cntUserNoContaing(userNo, word);
 		return boardRepository.findByUserNo(userNo);
 	}
-	
-	//내가 작성한 댓글
-	public Page<Comment> cfindByUserNo(Long userNo, Pageable pageable){
-		return commentRepository.findByUserNo(userNo,pageable);
+
+	// 내가 작성한 댓글
+	public Page<Comment> cfindByUserNo(Long userNo, Pageable pageable) {
+		return commentRepository.findByUserNo(userNo, pageable);
 	}
-	//내가작성한 댓글 수
-		public Long commentCount(Long userNo) {
-			return commentRepository.findByUserNo(userNo);
-		}
+
+	// 내가작성한 댓글 수
+	public Long commentCount(Long userNo) {
+		return commentRepository.findByUserNo(userNo);
+	}
+	//나의 장터
+	public Page<Board_Market> mfindByUserNo(Long userNo,String field, String word,Pageable pageable){
+		if(field.equals("m_pname"))
+			return bmRepository.mfindByUserNoContaing(userNo, word, pageable);
+		return bmRepository.findByUserNo(userNo,pageable);
+	}
+	//나의 장터 수
+	public Long  marketCount(Long userNo,String field, String word) {
+		if(field.equals("m_pname"))
+			return bmRepository.mcntUserNoContaing(userNo, word);
+		return bmRepository.cfindByUserNo(userNo);
+	}
 
 	// 아이디중복확인
 	public String idCheck(String username) {
@@ -83,8 +106,6 @@ public class UserService {
 			return userRepository.cntUsernameContaining(word);
 		return userRepository.count();
 	}
-	
-	
 
 	// 회원 정보 수정
 	@Transactional
@@ -112,5 +133,5 @@ public class UserService {
 		User user = userRepository.findById(userNo).get();
 		return user;
 	}
-	
+
 }

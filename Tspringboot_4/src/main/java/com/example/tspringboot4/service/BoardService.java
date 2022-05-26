@@ -25,18 +25,19 @@ public class BoardService {
 	}
 
 	// 게시글 전체보기
-	public Page<Board> findAll(String field,String word, Pageable pageable) {
-		if(field.equals("writer"))
+	public Page<Board> findAll(String field, String word, Pageable pageable) {
+		if (field.equals("writer"))
 			return boardRepositoroy.findByWriterContaining(word, pageable);
-		if(field.equals("title"))
+		if (field.equals("title"))
 			return boardRepositoroy.findByTitleContaining(word, pageable);
 		return boardRepositoroy.findAll(pageable);
 	}
-	//게시글 수
-	public Long boardCount(String field,String word) {
-		if(field.equals("writer"))
+
+	// 게시글 수
+	public Long boardCount(String field, String word) {
+		if (field.equals("writer"))
 			return boardRepositoroy.cntWriterContaining(word);
-		if(field.equals("title"))
+		if (field.equals("title"))
 			return boardRepositoroy.cntTitleContaining(word);
 		return boardRepositoroy.count();
 	}
@@ -64,5 +65,13 @@ public class BoardService {
 		return board;
 	}
 	
+	//관리자용 게시글
+		public Page<Board> adfindAll(String field, String word, Pageable pageable) {
+			if (field.equals("writer"))
+				return boardRepositoroy.findByWriterContaining(word, pageable);
+			if (field.equals("title"))
+				return boardRepositoroy.findByTitleContaining(word, pageable);
+			return boardRepositoroy.findAll(pageable);
+		}
 
 }

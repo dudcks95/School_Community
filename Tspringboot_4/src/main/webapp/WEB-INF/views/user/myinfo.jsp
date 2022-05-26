@@ -127,89 +127,85 @@
 									id="btnDelete">탈퇴하기</button>
 							</div>
 						</div>
-					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-	<script>
-   if(${user.schoolgrade==1}){
-      $("input:radio[value=1]").attr("checked",true)
-   }else if(${user.schoolgrade==2}){
-      $("input:radio[value=2]").attr("checked",true)
-   }else if(${user.schoolgrade==3}){
-      $("input:radio[value=3]").attr("checked",true)
-   }else{
-      $("input:radio[value=4]").attr("checked",true)
-   }
-   
-   $("#btnUpdate").click(function(){
-      var tel = /^[0-9]{3}-[0-9]{4}-[0-9]{4}$/;
-      var mail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      if ($("#password").val() != $("#pwd_check").val()) {
-         alert("비밀번호가 일치하지 않습니다.")
-         $("#pwd_check").focus();
-         return false;
-      }
-      if (!$("#email").val().match(mail)) {
-         alert("이메일 형식이 아닙니다.")
-         $("#email").focus();
-         return false;
-      }
-      if (!$("#phone").val().match(tel)) {
-         alert("전화번호 형식이 아닙니다.")
-         $("#phone").focus();
-         return false;
-      }
-      var data ={
-            "userNo":$("#userNo").val(),
-            "name" : $("#name").val(),
-            "username" : $("#username").val(),
-            "password" : $("#password").val(),
-            "pwd_check" : $("#pwd_check").val(),
-            "email" : $("#email").val(),
-            "phone" : $("#phone").val(),
-            "school" : {
-               "schoolName" : $("#schoolName").val()
-            },
-            "schoolgrade" : $(
-                  "input:radio[name='schoolgrade']:checked")
-                  .val()   
-      }
-      $.ajax({
-         type:"put",
-         url:"/update",
-         contentType:"application/json;charset=utf-8",
-         data:JSON.stringify(data),
-         success:function(resp){
-            alert("수정완료")
-            location.href="/mywrite/${user.userNo}";
-         },
-         error:function(){
-            alert("수정실패")
-         }
-      })
-      
-   })
-      $("#btnDelete").click(function() {
-         if (!confirm("정말 탈퇴하시겠습니까?"))
-            return false;
-         $.ajax({
-            type : "delete",
-            url : "/delete/${user.userNo}",
-            success : function(resp) {
-               if (resp == "success") {
-                  alert("탈퇴성공")
-                  location.href = "/logout"
-               }
-            },
-            error : function() {
-               alert("탈퇴실패")
-            }
-         })
-      })
-   </script>
 </div>
+<script>
+			if (${ user.schoolgrade == 1 }) {
+				$("input:radio[value=1]").attr("checked", true)
+			}else if (${ user.schoolgrade == 2 }) {
+				$("input:radio[value=2]").attr("checked", true)
+			}else if (${ user.schoolgrade == 3 }) {
+				$("input:radio[value=3]").attr("checked", true)
+			}else {
+				$("input:radio[value=4]").attr("checked", true)
+			}
 
-</body>
-</html>
+			$("#btnUpdate").click(function () {
+				var tel = /^[0-9]{3}-[0-9]{4}-[0-9]{4}$/;
+				var mail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+				if ($("#password").val() != $("#pwd_check").val()) {
+					alert("비밀번호가 일치하지 않습니다.")
+					$("#pwd_check").focus();
+					return false;
+				}
+				if (!$("#email").val().match(mail)) {
+					alert("이메일 형식이 아닙니다.")
+					$("#email").focus();
+					return false;
+				}
+				if (!$("#phone").val().match(tel)) {
+					alert("전화번호 형식이 아닙니다.")
+					$("#phone").focus();
+					return false;
+				}
+				var data = {
+					"userNo": $("#userNo").val(),
+					"name": $("#name").val(),
+					"username": $("#username").val(),
+					"password": $("#password").val(),
+					"pwd_check": $("#pwd_check").val(),
+					"email": $("#email").val(),
+					"phone": $("#phone").val(),
+					"school": {
+						"schoolName": $("#schoolName").val()
+					},
+					"schoolgrade": $(
+						"input:radio[name='schoolgrade']:checked")
+						.val()
+				}
+				$.ajax({
+					type: "put",
+					url: "/update",
+					contentType: "application/json;charset=utf-8",
+					data: JSON.stringify(data),
+					success: function (resp) {
+						alert("수정완료")
+						location.href = "/mywrite/${user.userNo}";
+					},
+					error: function () {
+						alert("수정실패")
+					}
+				})
+
+			})
+			$("#btnDelete").click(function () {
+				if (!confirm("정말 탈퇴하시겠습니까?"))
+					return false;
+				$.ajax({
+					type: "delete",
+					url: "/delete/${user.userNo}",
+					success: function (resp) {
+						if (resp == "success") {
+							alert("탈퇴성공")
+							location.href = "/logout"
+						}
+					},
+					error: function () {
+						alert("탈퇴실패")
+					}
+				})
+			})
+		</script>

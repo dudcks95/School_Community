@@ -2,6 +2,7 @@ package com.example.tspringboot4.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,7 +20,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 @Entity(name = "comment")
 public class Comment {
 	@Id
@@ -31,7 +33,7 @@ public class Comment {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date c_regdate;
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name ="bnum")
+	@JoinColumn(name = "bnum")
 	private Board board;
 	@ManyToOne
 	@JoinColumn(name = "user_no")

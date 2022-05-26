@@ -32,7 +32,7 @@
 			<textarea class="form-control" row="5" id="content" name="content">${board.content }</textarea>
 		</div>
 
-		<button type="button" class="btn btn-primary btn-sm" id="btnModify">글쓰기</button>
+		<button type="button" class="btn btn-primary btn-sm mt-3" id="btnModify">수정하기</button>
 		</form>
 		</div>
 		<hr>
