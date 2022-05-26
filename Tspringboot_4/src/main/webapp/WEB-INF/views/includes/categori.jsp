@@ -17,7 +17,7 @@
 				href="/mywrite/${principal.user.userNo }"><i class="bi bi-arrow-right me-2"></i>내가 작성한 글</a> <a
 				class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="/mycomment/${principal.user.userNo }"><i
 					class="bi bi-arrow-right me-2"></i>내가 작성한 댓글</a><a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-				href="#"><i class="bi bi-arrow-right me-2"></i>나의 장터</a> <a
+				href="/mymarket/${principal.user.userNo }"><i class="bi bi-arrow-right me-2"></i>나의 장터</a> <a
 				class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#"><i class="bi bi-arrow-right me-2"></i>Email
 				Marketing</a>
 		</div>

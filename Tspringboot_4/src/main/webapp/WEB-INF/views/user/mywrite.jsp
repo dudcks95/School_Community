@@ -58,7 +58,24 @@
 											<li class="page-item"><a class="page-link" href="?page=${boards.number+1 }">다음</a></li>
 										</c:if>
 									</ul>
+									<form class="form-inline">
+										<div class="row">
+											<div class="col-3">
+												<select name="field" class="form-control mr-sm-1">
+													<option value="title">제목</option>
+												</select>
+											</div>
+											<div class="col-6">
+												<input type="text" name="word" class="form-control" placeholder="Search">
+											</div>
+											<div class="col-3">
+												<button class="btn btn-info">검색</button>
+											</div>
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>
 					</div>
+				</div>
+			</div>

@@ -50,7 +50,6 @@
 				<sec:authentication property="principal" var="principal" />
 			</sec:authorize>
 
-
 			<body>
 
 
@@ -99,9 +98,10 @@
 							<div class="navbar-nav ms-auto py-0">
 								<a href="/" class="nav-item nav-link">Home</a>
 								<div class="nav-item dropdown">
-									<a href="#" class="nav-item nav-link" data-bs-toggle="dropdown">게시판</a>
+									<a href="" class="nav-item nav-link" data-bs-toggle="dropdown">게시판</a>
 									<div class="dropdown-menu m-0">
-										<a href="/boardList" class="dropdown-item">자유 게시판</a> <a href="" class="dropdown-item">xx 게시판</a>
+										<a href="/boardList" class="dropdown-item">자유 게시판</a>
+										<a href="/boardList" class="dropdown-item">동아리 게시판</a>
 									</div>
 								</div>
 								<a href="/marketList" class="nav-item nav-link">장터</a>
@@ -124,18 +124,18 @@
 								</div>
 								<a href="contact.html" class="nav-item nav-link">Contact</a>
 							</div>
-
 						</div>
 						<sec:authorize access="hasRole('ADMIN')">
-							<a href="/boardList" class="nav-item nav-link">회원관리</a>
+							<a href="/userlist" class="nav-item nav-link">회원관리</a>
 						</sec:authorize>
 						<sec:authorize access="hasRole('USER')">
 							<a href="/boardInsert" class="nav-item nav-link">회원전용</a>
 						</sec:authorize>
 
-						<!-- 검색창  -->
 						<butaton type="button" class="btn text-primary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal">
-							<i class="fa fa-search"></i> </butaton>
+							<i class="fa fa-search"></i>
+						</butaton>
+
 						<sec:authorize access="isAnonymous()">
 							<a class="nav-item nav-link" href="/login">로그인</a>
 							<a class="nav-item nav-link" href="/join">회원가입</a>

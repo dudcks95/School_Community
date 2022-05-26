@@ -37,10 +37,10 @@
                 <!-- 파일 칸 -->
                 <div class="form-group">
                     <label for="file">이미지:</label>
-                    <input type="file" class="" id="upload" placeholder="Enter file" name="upload">
+                    <input type="file" class="mt-3" id="upload" placeholder="Enter file" name="upload">
                 </div>
 
 
-                <button type="submit" class="btn btn-primary btn-sm">글쓰기</button>
+                <button type="submit" class="btn btn-primary btn-sm mt-3">글쓰기</button>
             </form>
         </div>

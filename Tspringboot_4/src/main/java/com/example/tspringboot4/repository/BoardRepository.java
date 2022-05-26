@@ -22,6 +22,14 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
 	@Query(value = "select count(*) from board where title like CONCAT('%',:word,'%')",nativeQuery = true)
 	public Long cntTitleContaining(@Param("word") String word);
 	
+	
+	//내가 작성한 글 검색 JPQL
+	@Query(value="select * from board where user_no=:userNo and title like CONCAT('%',:word,'%')",nativeQuery = true)
+	public Page<Board> findByUserNoContaing(@Param("userNo") Long userNo, @Param("word") String word, Pageable pageable);
+	//내가 작성한 글 수 JPQL
+	@Query(value="select count(*) from board where user_no=:userNo and title like CONCAT('%',:word,'%')",nativeQuery = true)
+	public Long cntUserNoContaing(@Param("userNo") Long userNo, @Param("word") String word);
+	
 	//내가 작성한 글 JPQL
 	@Query("select sc from board sc where user_no=?1")
 	public Page<Board> findByUserNo(Long userNo, Pageable pageable);

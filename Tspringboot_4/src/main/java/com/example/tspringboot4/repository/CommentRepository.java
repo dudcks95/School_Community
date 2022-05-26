@@ -7,7 +7,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import com.example.tspringboot4.model.Board;
 import com.example.tspringboot4.model.Comment;
 
 public interface CommentRepository extends JpaRepository<Comment, Long>{
@@ -18,7 +20,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long>{
 	
 	//리스트 JPQL
 	@Query("select sc from comment sc where bnum=?1")
-	public List<Comment> findByNo(Long no);
+	public List<Comment> findByNo(Long no);	
 	
 	//내가 작성한 댓글
 	@Query("select sc from comment sc where user_no=?1")

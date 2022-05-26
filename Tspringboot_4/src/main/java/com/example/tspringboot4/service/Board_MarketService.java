@@ -43,8 +43,13 @@ public class Board_MarketService {
 	}
 
 	// 장터게시판 리스트
-	public List<Board_Market> marketList() {
-		return board_MarketRepository.findAll();
+	public Page<Board_Market> marketList(Pageable pageable) {
+		return board_MarketRepository.findAll(pageable);
+	}
+
+	// 리스트 수
+	public Long count() {
+		return board_MarketRepository.count();
 	}
 
 	// 리스트 조회수 순서
