@@ -68,8 +68,8 @@
 												<div class="p-4">
 													<div class="d-flex mb-3">
 														<small class="me-3"><i class="far fa-user text-primary me-2"></i>조회수 :
-															${product.m_hitcount }</small> <small><i
-																class="far fa-calendar-alt text-primary me-2"></i> 게시일 :
+															${product.hitcount }</small> <small><i class="far fa-calendar-alt text-primary me-2"></i>
+															게시일 :
 															<fmt:formatDate value="${product.m_regdate }" pattern="yyyy-MM-dd" />
 														</small>
 													</div>
@@ -86,6 +86,8 @@
 									<div class="col-12 wow slideInUp" data-wow-delay="0.1s">
 
 										<div class="d-flex justify-content-between mt-5 mr-auto bg-white">
+											<button type="button" class="btn btn-info" onclick="location.href='marketInsert'">물건
+												올리기</button>
 											<ul class="pagination">
 												<c:if test="${products.first==false }">
 													<li class="page-item"><a class="page-link" href="?page=${products.number-1 }">이전</a></li>
@@ -109,10 +111,10 @@
 													</div>
 												</div>
 											</form>
+
 										</div>
 
-										<button type="button" class="btn btn-info mt-3" onclick="location.href='marketInsert'">물건
-											올리기</button>
+
 									</div>
 								</div>
 							</div>
@@ -131,21 +133,30 @@
 								</div>
 								<!-- Search Form End -->
 
-								<!-- Recent Post Start -->
+								<!-- 인기 판매글 시작 -->
 								<div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
 									<div class="section-title section-title-sm position-relative pb-3 mb-4">
 										<h3 class="mb-0">인기 판매 글</h3>
 									</div>
-									<c:forEach items="${hits }" var="hit">
+									<c:forEach items="${hits }" var="hit" begin="1" end="3" varStatus="num">
 										<div class="d-flex rounded overflow-hidden mb-3">
-											<!-- <img class="img-fluid" src="img/blog-1.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt=""> -->
-											<!-- <a href="" class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet adipis elit </a> -->
-											${hit.m_pname }
+											<img class="img-fluid" src="/resources/img/${hit.m_pimage }"
+												style="width: 100px; height: 100px; object-fit: cover;" alt="">
+
+											<a href="/marketDetail/${hit.mno }"
+												class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0"
+												style="width: 300px; height:100px;">
+												${num.count }위 / ${hit.m_pname }
+												<br><br>
+												${hit.price } 원
+											</a>
+
+											<%-- ${hit.m_pname } --%>
 										</div>
 									</c:forEach>
 
 								</div>
-								<!-- Recent Post End -->
+								<!-- 인기 판매글 끝 -->
 
 								<!-- Category Start -->
 								<div class="mb-5 wow slideInUp" data-wow-delay="0.1s">

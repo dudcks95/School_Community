@@ -1,6 +1,7 @@
 package com.example.tspringboot4.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,9 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;<<<<<<<HEAD
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;=======>>>>>>>hyunjin
+import org.springframework.web.bind.annotation.PostMapping;
+
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.tspringboot4.config.auth.PrincipalDetails;
@@ -59,7 +60,6 @@ public class Board_MarketController {
 
 	// 장터게시판 리스트 출력
 	@GetMapping("marketList")
-
 	public String marketList(Model model,
 			@PageableDefault(size = 6, sort = "mno", direction = Direction.DESC) Pageable pageable) {
 		model.addAttribute("count", board_MarketService.count());

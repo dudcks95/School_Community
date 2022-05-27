@@ -21,9 +21,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 @Entity(name = "board_market")
 public class Board_Market {
 	@Id

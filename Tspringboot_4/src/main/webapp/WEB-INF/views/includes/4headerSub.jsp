@@ -4,7 +4,6 @@
 			<!DOCTYPE html>
 			<html>
 
-
 			<head>
 				<meta charset="UTF-8">
 				<title>Startup - Startup Website Template</title>
@@ -25,11 +24,6 @@
 				<!-- Libraries Stylesheet -->
 				<link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 				<link href="/lib/animate/animate.min.css" rel="stylesheet">
-
-				<!-- Libraries Stylesheet -->
-				<link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-				<link href="/lib/animate/animate.min.css" rel="stylesheet">
-
 
 				<!-- Customized Bootstrap Stylesheet -->
 				<link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -80,7 +74,7 @@
 						</div>
 					</div>
 				</div>
-
+				<!-- Topbar End -->
 
 
 				<!-- Navbar Start -->
@@ -88,7 +82,7 @@
 					<nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0">
 						<a href="index.html" class="navbar-brand p-0">
 							<h1 class="m-0">
-								<i class="fa fa-user-tie me-2"></i>Startup
+								<i class="fa fa-user-tie me-2"></i>Community
 							</h1>
 						</a>
 						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -100,29 +94,14 @@
 								<div class="nav-item dropdown">
 									<a href="" class="nav-item nav-link" data-bs-toggle="dropdown">게시판</a>
 									<div class="dropdown-menu m-0">
-										<a href="/boardList" class="dropdown-item">자유 게시판</a>
-										<a href="/boardList" class="dropdown-item">동아리 게시판</a>
+										<a href="/boardList" class="dropdown-item">전체 게시판</a>
+										<a href="/boardList/자유" class="dropdown-item">자유 게시판</a>
+										<a href="/boardList/동아리" class="dropdown-item">동아리 게시판</a>
+										<a href="/boardList/취미" class="dropdown-item">취미 게시판</a>
 									</div>
 								</div>
 								<a href="/marketList" class="nav-item nav-link">장터</a>
-								<div class="nav-item dropdown">
-									<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Blog</a>
-									<div class="dropdown-menu m-0">
-										<a href="blog.html" class="dropdown-item">Blog Grid</a> <a href="detail.html"
-											class="dropdown-item">Blog Detail</a>
-									</div>
-								</div>
-								<a href="contact.html" class="nav-item nav-link">시간표</a>
-								<div class="nav-item dropdown">
-									<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-									<div class="dropdown-menu m-0">
-										<a href="price.html" class="dropdown-item">Pricing Plan</a> <a href="feature.html"
-											class="dropdown-item">Our features</a> <a href="team.html" class="dropdown-item">Team Members</a>
-										<a href="testimonial.html" class="dropdown-item">Testimonial</a> <a href="quote.html"
-											class="dropdown-item">Free Quote</a>
-									</div>
-								</div>
-								<a href="contact.html" class="nav-item nav-link">Contact</a>
+								<a href="/schedule" class="nav-item nav-link">시간표</a>
 							</div>
 						</div>
 						<sec:authorize access="hasRole('ADMIN')">

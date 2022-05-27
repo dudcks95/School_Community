@@ -12,7 +12,8 @@
 				<div class="container-fluid bg-primary py-5 bg-header" style="margin-bottom: 90px;">
 					<div class="row py-5">
 						<div class="col-12 pt-lg-5 mt-lg-5 text-center">
-							<h1 class="display-4 text-white animated zoomIn">게시판(${count })</h1>
+							<h1 class="display-4 text-white animated zoomIn">${sort}게시판</h1>
+							
 							<a href="" class="h5 text-white">Home</a> <i class="far fa-circle text-white px-2"></i> <a href=""
 								class="h5 text-white">게시판</a>
 						</div>
@@ -65,7 +66,7 @@
 									<li class="page-item"><a class="page-link" href="?page=${boards.number+1 }">다음</a></li>
 								</c:if>
 							</ul>
-							<form class="form-inline" action="/boardList" method="get">
+							<form class="form-inline">
 								<div class="row">
 									<div class="col-3">
 										<select name="field" class="form-control mr-sm-1">

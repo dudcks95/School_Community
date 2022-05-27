@@ -51,7 +51,9 @@ public class HomeController {
 	private final BoardService boardService;
 
 	@GetMapping("/")
-	public String home() {
+	public String home(Model model) {
+		
+		//model.addAttribute("usercount", count)
 		return "home";
 	}
 
