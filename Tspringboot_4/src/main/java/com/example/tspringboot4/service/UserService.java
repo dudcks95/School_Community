@@ -53,14 +53,14 @@ public class UserService {
 	}
 
 	// 내가작성한글
-	public Page<Board> findByUserNo(Long userNo,String field, String word, Pageable pageable) {
+	public Page<Board> findByUserNo(Long userNo, String field, String word, Pageable pageable) {
 		if (field.equals("title"))
 			return boardRepository.findByUserNoContaing(userNo, word, pageable);
 		return boardRepository.findByUserNo(userNo, pageable);
 	}
 
 	// 내가작성한 글 수
-	public Long writeCount(Long userNo,String field, String word) {
+	public Long writeCount(Long userNo, String field, String word) {
 		if (field.equals("title"))
 			return boardRepository.cntUserNoContaing(userNo, word);
 		return boardRepository.findByUserNo(userNo);
@@ -75,15 +75,17 @@ public class UserService {
 	public Long commentCount(Long userNo) {
 		return commentRepository.findByUserNo(userNo);
 	}
-	//나의 장터
-	public Page<Board_Market> mfindByUserNo(Long userNo,String field, String word,Pageable pageable){
-		if(field.equals("m_pname"))
+
+	// 나의 장터
+	public Page<Board_Market> mfindByUserNo(Long userNo, String field, String word, Pageable pageable) {
+		if (field.equals("mpname"))
 			return bmRepository.mfindByUserNoContaing(userNo, word, pageable);
-		return bmRepository.findByUserNo(userNo,pageable);
+		return bmRepository.findByUserNo(userNo, pageable);
 	}
-	//나의 장터 수
-	public Long  marketCount(Long userNo,String field, String word) {
-		if(field.equals("m_pname"))
+
+	// 나의 장터 수
+	public Long marketCount(Long userNo, String field, String word) {
+		if (field.equals("mpname"))
 			return bmRepository.mcntUserNoContaing(userNo, word);
 		return bmRepository.cfindByUserNo(userNo);
 	}

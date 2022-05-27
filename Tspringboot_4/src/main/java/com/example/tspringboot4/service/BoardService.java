@@ -64,14 +64,19 @@ public class BoardService {
 		board.setHitcount(board.getHitcount() + 1);
 		return board;
 	}
-	
-	//관리자용 게시글
-		public Page<Board> adfindAll(String field, String word, Pageable pageable) {
-			if (field.equals("writer"))
-				return boardRepositoroy.findByWriterContaining(word, pageable);
-			if (field.equals("title"))
-				return boardRepositoroy.findByTitleContaining(word, pageable);
-			return boardRepositoroy.findAll(pageable);
-		}
 
+	// 관리자용 게시글
+	public Page<Board> adfindAll( Pageable pageable) {
+		/*
+		 * if (field.equals("writer")) return
+		 * boardRepositoroy.findByWriterContaining(word, pageable); if
+		 * (field.equals("title")) return boardRepositoroy.findByTitleContaining(word,
+		 * pageable);
+		 */
+		return boardRepositoroy.findAll(pageable);
+	}
+	//관리자용 게시글수
+	public Long adCount() {
+		return boardRepositoroy.count();
+	}
 }

@@ -43,7 +43,7 @@ public class BoardController {
 		model.addAttribute("rowNo", count - (board.getNumber() * pageable.getPageSize()));
 		return "/board/boardList";
 	}
-
+	
 	// 게시판 입력 폼
 	@GetMapping("boardInsert")
 	public String insert() {
@@ -87,7 +87,8 @@ public class BoardController {
 		boardService.boardDelete(no);
 		return "success";
 	}
-	//관리자 게시글보기
+
+	// 관리자 게시글보기
 	@GetMapping("adboard")
 	public String adlist(Model model,
 			@PageableDefault(size = 8, sort = "no", direction = Direction.DESC) Pageable pageable,
@@ -98,6 +99,6 @@ public class BoardController {
 		model.addAttribute("boards", board);
 		model.addAttribute("count", count);
 		model.addAttribute("rowNo", count - (board.getNumber() * pageable.getPageSize()));
-		return "/board/boardList";
+		return "/admin/adboard";
 	}
 }

@@ -20,11 +20,11 @@
 					</div>
 					<div class="link-animated d-flex flex-column justify-content-start">
 						<a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-							href="/myinfo/${user.no }"><i class="bi bi-arrow-right me-2"></i>회원리스트</a>
+							href="/myinfo/${user.userNo }"><i class="bi bi-arrow-right me-2"></i>회원리스트</a>
 						<a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-							href="/mywrite/${user.no}"><i class="bi bi-arrow-right me-2"></i>커뮤니티</a>
+							href="/mywrite/${user.userNo}"><i class="bi bi-arrow-right me-2"></i>커뮤니티</a>
 						<a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-							href="/mycomment/${user.no}"><i
+							href="/mycomment/${user.userNo}"><i
 							class="bi bi-arrow-right me-2"></i>내가 작성한 댓글</a>
 					</div>
 				</div>
@@ -57,7 +57,7 @@
 									<td class="col-email">${user.email }</td>
 									<td class="col-phone">${user.phone }</td>
 									<td class="col-schoolName">${user.school.schoolName }</td>
-									<td class="col-delete" onclick="del('${user.no}')">삭제</td>
+									<td class="col-delete" onclick="del('${user.userNo}')">삭제</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -97,11 +97,11 @@
 	</div>
 </div>
 <script>
-	function del(no) {
+	function del(userNo) {
 		if (confirm("정말 삭제할까요?")) {
 			$.ajax({
 				type : "delete",
-				url : "delete/" + no
+				url : "/delete/" + userNo
 			}).done(function(resp) {
 				alert("삭제성공")
 				location.href = "/userlist";

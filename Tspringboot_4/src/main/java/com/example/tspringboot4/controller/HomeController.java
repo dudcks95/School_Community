@@ -169,15 +169,15 @@ public class HomeController {
 		model.addAttribute("rowNo", count - (comment.getNumber() * pageable.getPageSize()));
 		return "/user/mycomment";
 	}
-	
-	//나의 장터
+
+	// 나의 장터
 	@GetMapping("mymarket/{userNo}")
 	public String mymarket(@PathVariable Long userNo, Model model,
 			@PageableDefault(size = 6, sort = "mno", direction = Direction.DESC) Pageable pageable,
 			@RequestParam(required = false, defaultValue = "") String field,
 			@RequestParam(required = false, defaultValue = "") String word) {
-		Page<Board_Market> bm=userService.mfindByUserNo(userNo, field, word, pageable);
-		Long count=userService.marketCount(userNo, field, word);
+		Page<Board_Market> bm = userService.mfindByUserNo(userNo, field, word, pageable);
+		Long count = userService.marketCount(userNo, field, word);
 		model.addAttribute("products", bm);
 		model.addAttribute("count", count);
 		return "/user/mymarket";
@@ -220,4 +220,8 @@ public class HomeController {
 		return "/admin/userlist";
 	}
 
+	// @GetMapping("contact")
+	// public String contact() {
+	// return "/user/contact";
+	// }
 }

@@ -15,19 +15,13 @@
 		</div>
 	</div>
 </div>
-<head>
 
-<!-- Icon Font Stylesheet -->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-	rel="stylesheet">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-	rel="stylesheet">
+<head>
 
 </head>
 
 <body>
+
 
 
 
@@ -81,11 +75,11 @@
 										<div class="d-flex mb-3">
 											<small class="me-3"><i
 												class="far fa-user text-primary me-2"></i>조회수 :
-												${product.m_hitcount }</small> <small><i
+												${product.hitcount }</small> <small><i
 												class="far fa-calendar-alt text-primary me-2"></i> 게시일 : <fmt:formatDate
 													value="${product.m_regdate }" pattern="yyyy-MM-dd" /> </small>
 										</div>
-										<h4 class="mb-3">${product.m_pname }</h4>
+										<h4 class="mb-3">${product.mpname }</h4>
 										<p>가격 : ${product.price }원</p>
 										<a class="text-uppercase" href="/marketDetail/${product.mno }">자세히
 											보기<i class="bi bi-arrow-right"></i>
@@ -108,24 +102,7 @@
 											href="?page=${products.number+1 }">다음</a></li>
 									</c:if>
 								</ul>
-								<form class="form-inline" action="/boardList" method="get">
-									<div class="row">
-										<div class="col-3">
-											<select name="field" class="form-control mr-sm-1">
-												<option value="m_pname">제목</option>
-											</select>
-										</div>
-										<div class="col-6">
-											<input type="text" name="word" class="form-control"
-												placeholder="Search">
-										</div>
-										<div class="col-3">
-											<button class="btn btn-info">검색</button>
-										</div>
-									</div>
-								</form>
 							</div>
-
 							<button type="button" class="btn btn-info mt-3"
 								onclick="location.href='marketInsert'">물건 올리기</button>
 						</div>
@@ -137,12 +114,17 @@
 				<div class="col-lg-4">
 					<!-- Search Form Start -->
 					<div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-						<div class="input-group">
-							<input type="text" class="form-control p-3" placeholder="Keyword">
-							<button class="btn btn-primary px-4">
-								<i class="bi bi-search"></i>
-							</button>
-						</div>
+						<form action="/marketList">
+							<div class="input-group">
+								<select name="field" class="form-control mr-sm-1">
+									<option value="mpname">제목</option>
+								</select> <input type="text" class="form-control p-3" name="word"
+									placeholder="Keyword" style="width: 60%">
+								<button class="btn btn-primary px-4">
+									<i class="bi bi-search"></i>
+								</button>
+							</div>
+						</form>
 					</div>
 					<!-- Search Form End -->
 
@@ -152,48 +134,14 @@
 							class="section-title section-title-sm position-relative pb-3 mb-4">
 							<h3 class="mb-0">인기 판매 글</h3>
 						</div>
-						<div class="d-flex rounded overflow-hidden mb-3">
-							<img class="img-fluid" src="img/blog-1.jpg"
-								style="width: 100px; height: 100px; object-fit: cover;" alt="">
-							<a href=""
-								class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">Lorem
-								ipsum dolor sit amet adipis elit </a>
-						</div>
-						<div class="d-flex rounded overflow-hidden mb-3">
-							<img class="img-fluid" src="img/blog-2.jpg"
-								style="width: 100px; height: 100px; object-fit: cover;" alt="">
-							<a href=""
-								class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">Lorem
-								ipsum dolor sit amet adipis elit </a>
-						</div>
-						<div class="d-flex rounded overflow-hidden mb-3">
-							<img class="img-fluid" src="img/blog-3.jpg"
-								style="width: 100px; height: 100px; object-fit: cover;" alt="">
-							<a href=""
-								class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">Lorem
-								ipsum dolor sit amet adipis elit </a>
-						</div>
-						<div class="d-flex rounded overflow-hidden mb-3">
-							<img class="img-fluid" src="img/blog-1.jpg"
-								style="width: 100px; height: 100px; object-fit: cover;" alt="">
-							<a href=""
-								class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">Lorem
-								ipsum dolor sit amet adipis elit </a>
-						</div>
-						<div class="d-flex rounded overflow-hidden mb-3">
-							<img class="img-fluid" src="img/blog-2.jpg"
-								style="width: 100px; height: 100px; object-fit: cover;" alt="">
-							<a href=""
-								class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">Lorem
-								ipsum dolor sit amet adipis elit </a>
-						</div>
-						<div class="d-flex rounded overflow-hidden mb-3">
-							<img class="img-fluid" src="img/blog-3.jpg"
-								style="width: 100px; height: 100px; object-fit: cover;" alt="">
-							<a href=""
-								class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">Lorem
-								ipsum dolor sit amet adipis elit </a>
-						</div>
+						<c:forEach items="${hits }" var="hit">
+							<div class="d-flex rounded overflow-hidden mb-3">
+								<!-- <img class="img-fluid" src="img/blog-1.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt=""> -->
+								<!-- <a href="" class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet adipis elit </a> -->
+								${hit.mpname }
+							</div>
+						</c:forEach>
+
 					</div>
 					<!-- Recent Post End -->
 
@@ -266,19 +214,6 @@
 		class="btn btn-lg btn-primary btn-lg-square rounded back-to-top"><i
 		class="bi bi-arrow-up"></i></a>
 
-
-	<!-- JavaScript Libraries -->
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="lib/wow/wow.min.js"></script>
-	<script src="lib/easing/easing.min.js"></script>
-	<script src="lib/waypoints/waypoints.min.js"></script>
-	<script src="lib/counterup/counterup.min.js"></script>
-	<script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-	<!-- Template Javascript -->
-	<script src="js/main.js"></script>
 </body>
 
 </html>
