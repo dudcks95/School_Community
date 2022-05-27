@@ -12,8 +12,8 @@
         <div class="container">
             <form action="marketInsert" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="m_pname">제목:</label> <input type="text" class="form-control" id="m_pname"
-                        placeholder="Enter product name" name="m_pname">
+                    <label for="m_pname">제목:</label> <input type="text" class="form-control" id="mpname"
+                        placeholder="Enter product name" name="mpname">
                 </div>
 
 

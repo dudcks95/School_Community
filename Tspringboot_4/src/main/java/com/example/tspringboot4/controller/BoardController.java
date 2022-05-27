@@ -105,17 +105,17 @@ public class BoardController {
 	}
 
 	// 관리자 게시글보기
-	@GetMapping("adboard/{sort}")
-	public String adlist(Model model, @PathVariable String sort,
+	@GetMapping("adboard")
+	public String adlist(Model model,
 			@PageableDefault(size = 8, sort = "no", direction = Direction.DESC) Pageable pageable,
 			@RequestParam(required = false, defaultValue = "") String field,
 			@RequestParam(required = false, defaultValue = "") String word) {
-		Page<Board> board = boardService.findAll(field, word, pageable, sort);
+		Page<Board> board = boardService.findAll2(field, word, pageable);
 		Long count = boardService.boardCount(field, word);
 		model.addAttribute("boards", board);
 		model.addAttribute("count", count);
 		model.addAttribute("rowNo", count - (board.getNumber() * pageable.getPageSize()));
-		return "/board/boardList";
+		return "/admin/adboard";
 	}
 
 	@GetMapping("schedule")

@@ -45,177 +45,170 @@
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<!-- Full Screen Search End -->
+
+						<head>
+
+						</head>
+
+						<body>
 
 
-				<!-- Blog Start -->
-				<div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
-					<div class="container py-5">
-						<div class="row g-5">
-							<!-- Blog list Start -->
-							<div class="col-lg-8">
-								<div class="row g-5">
-									<c:forEach items="${products.content }" var="product">
-										<div class="col-md-6 wow slideInUp" data-wow-delay="0.3s">
-											<div class="blog-item bg-light rounded overflow-hidden">
-												<div class="blog-img position-relative overflow-hidden">
-													<img class="img-fluid" src="/resources/img/${product.m_pimage }" alt=""> <a
-														class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4"
-														href="">Web Design</a>
-												</div>
-												<div class="p-4">
-													<div class="d-flex mb-3">
-														<small class="me-3"><i class="far fa-user text-primary me-2"></i>조회수 :
-															${product.hitcount }</small> <small><i class="far fa-calendar-alt text-primary me-2"></i>
-															게시일 :
-															<fmt:formatDate value="${product.m_regdate }" pattern="yyyy-MM-dd" />
-														</small>
+							<!-- Blog Start -->
+							<div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+								<div class="container py-5">
+									<div class="row g-5">
+										<!-- Blog list Start -->
+										<div class="col-lg-8">
+											<div class="row g-5">
+												<c:forEach items="${products.content }" var="product">
+													<div class="col-md-6 wow slideInUp" data-wow-delay="0.3s">
+														<div class="blog-item bg-light rounded overflow-hidden">
+															<div class="blog-img position-relative overflow-hidden">
+																<img class="img-fluid" src="/resources/img/${product.m_pimage }" alt=""> <a
+																	class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4"
+																	href="">Web Design</a>
+															</div>
+															<div class="p-4">
+																<div class="d-flex mb-3">
+																	<small class="me-3"><i class="far fa-user text-primary me-2"></i>조회수 :
+																		${product.hitcount }</small> <small><i
+																			class="far fa-calendar-alt text-primary me-2"></i> 게시일 :
+																		<fmt:formatDate value="${product.m_regdate }" pattern="yyyy-MM-dd" />
+																	</small>
+																</div>
+																<h4 class="mb-3">${product.mpname }</h4>
+																<p>가격 : ${product.price }원</p>
+																<a class="text-uppercase" href="/marketDetail/${product.mno }">자세히
+																	보기<i class="bi bi-arrow-right"></i>
+																</a>
+															</div>
+														</div>
 													</div>
-													<h4 class="mb-3">${product.m_pname }</h4>
-													<p>가격 : ${product.price }원</p>
-													<a class="text-uppercase" href="/marketDetail/${product.mno }">자세히
-														보기<i class="bi bi-arrow-right"></i>
-													</a>
-												</div>
+													<!-- Blog list End -->
+
+													<div class="col-12 wow slideInUp" data-wow-delay="0.1s">
+
+														<div class="d-flex justify-content-between mt-5 mr-auto bg-white">
+															<ul class="pagination">
+																<c:if test="${products.first==false }">
+																	<li class="page-item"><a class="page-link" href="?page=${products.number-1 }">이전</a>
+																	</li>
+																</c:if>
+																<c:if test="${products.last==false }">
+																	<li class="page-item"><a class="page-link" href="?page=${products.number+1 }">다음</a>
+																	</li>
+																</c:if>
+															</ul>
+														</div>
+														<button type="button" class="btn btn-info mt-3" onclick="location.href='marketInsert'">물건
+															올리기</button>
+													</div>
 											</div>
 										</div>
-									</c:forEach>
+										<!-- Blog list End -->
 
-									<div class="col-12 wow slideInUp" data-wow-delay="0.1s">
-
-										<div class="d-flex justify-content-between mt-5 mr-auto bg-white">
-											<button type="button" class="btn btn-info" onclick="location.href='marketInsert'">물건
-												올리기</button>
-											<ul class="pagination">
-												<c:if test="${products.first==false }">
-													<li class="page-item"><a class="page-link" href="?page=${products.number-1 }">이전</a></li>
-												</c:if>
-												<c:if test="${products.last==false }">
-													<li class="page-item"><a class="page-link" href="?page=${products.number+1 }">다음</a></li>
-												</c:if>
-											</ul>
-											<form class="form-inline" action="/boardList" method="get">
-												<div class="row">
-													<div class="col-3">
+										<!-- Sidebar Start -->
+										<div class="col-lg-4">
+											<!-- Search Form Start -->
+											<div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+												<form action="/marketList">
+													<div class="input-group">
 														<select name="field" class="form-control mr-sm-1">
-															<option value="m_pname">제목</option>
-														</select>
+															<option value="mpname">제목</option>
+														</select> <input type="text" class="form-control p-3" name="word" placeholder="Keyword"
+															style="width: 60%">
+														<button class="btn btn-primary px-4">
+															<i class="bi bi-search"></i>
+														</button>
 													</div>
-													<div class="col-6">
-														<input type="text" name="word" class="form-control" placeholder="Search">
+												</form>
+											</div>
+											<!-- Search Form End -->
+
+											<!-- 인기 판매글 시작 -->
+											<div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+												<div class="section-title section-title-sm position-relative pb-3 mb-4">
+													<h3 class="mb-0">인기 판매 글</h3>
+												</div>
+												<c:forEach items="${hits }" var="hit" begin="1" end="3" varStatus="num">
+													<div class="d-flex rounded overflow-hidden mb-3">
+														<img class="img-fluid" src="/resources/img/${hit.m_pimage }"
+															style="width: 100px; height: 100px; object-fit: cover;" alt="">
+
+														<a href="/marketDetail/${hit.mno }"
+															class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0"
+															style="width: 300px; height:100px;">
+															${num.count }위 / ${hit.mpname }
+															<br><br>
+															${hit.price } 원
+														</a>
+
+														<%-- ${hit.m_pname } --%>
 													</div>
-													<div class="col-3">
-														<button class="btn btn-info">검색</button>
+												</c:forEach>
+
+												<!-- Category Start -->
+												<div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+													<div class="section-title section-title-sm position-relative pb-3 mb-4">
+														<h3 class="mb-0">Categories</h3>
+													</div>
+													<div class="link-animated d-flex flex-column justify-content-start">
+														<a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#"><i
+																class="bi bi-arrow-right me-2"></i>Web Design</a> <a
+															class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#"><i
+																class="bi bi-arrow-right me-2"></i>Web Development</a> <a
+															class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#"><i
+																class="bi bi-arrow-right me-2"></i>Web Development</a> <a
+															class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#"><i
+																class="bi bi-arrow-right me-2"></i>Keyword Research</a> <a
+															class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#"><i
+																class="bi bi-arrow-right me-2"></i>Email Marketing</a>
 													</div>
 												</div>
-											</form>
+												<!-- Category End -->
 
+
+
+												<!-- Image Start -->
+												<div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+													<img src="img/blog-1.jpg" alt="" class="img-fluid rounded">
+												</div>
+												<!-- Image End -->
+
+												<!-- Tags Start -->
+												<div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+													<div class="section-title section-title-sm position-relative pb-3 mb-4">
+														<h3 class="mb-0">Tag Cloud</h3>
+													</div>
+													<div class="d-flex flex-wrap m-n1">
+														<a href="" class="btn btn-light m-1">Design</a> <a href=""
+															class="btn btn-light m-1">Development</a> <a href=""
+															class="btn btn-light m-1">Marketing</a> <a href="" class="btn btn-light m-1">SEO</a> <a
+															href="" class="btn btn-light m-1">Writing</a> <a href=""
+															class="btn btn-light m-1">Consulting</a> <a href="" class="btn btn-light m-1">Design</a>
+														<a href="" class="btn btn-light m-1">Development</a> <a href=""
+															class="btn btn-light m-1">Marketing</a> <a href="" class="btn btn-light m-1">SEO</a> <a
+															href="" class="btn btn-light m-1">Writing</a> <a href=""
+															class="btn btn-light m-1">Consulting</a>
+													</div>
+												</div>
+												<!-- Tags End -->
+
+
+											</div>
+											<!-- Sidebar End -->
 										</div>
-
-
 									</div>
 								</div>
-							</div>
-							<!-- Blog list End -->
-
-							<!-- Sidebar Start -->
-							<div class="col-lg-4">
-								<!-- Search Form Start -->
-								<div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-									<div class="input-group">
-										<input type="text" class="form-control p-3" placeholder="Keyword">
-										<button class="btn btn-primary px-4">
-											<i class="bi bi-search"></i>
-										</button>
-									</div>
-								</div>
-								<!-- Search Form End -->
-
-								<!-- 인기 판매글 시작 -->
-								<div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-									<div class="section-title section-title-sm position-relative pb-3 mb-4">
-										<h3 class="mb-0">인기 판매 글</h3>
-									</div>
-									<c:forEach items="${hits }" var="hit" begin="1" end="3" varStatus="num">
-										<div class="d-flex rounded overflow-hidden mb-3">
-											<img class="img-fluid" src="/resources/img/${hit.m_pimage }"
-												style="width: 100px; height: 100px; object-fit: cover;" alt="">
-
-											<a href="/marketDetail/${hit.mno }"
-												class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0"
-												style="width: 300px; height:100px;">
-												${num.count }위 / ${hit.m_pname }
-												<br><br>
-												${hit.price } 원
-											</a>
-
-											<%-- ${hit.m_pname } --%>
-										</div>
-									</c:forEach>
-
-								</div>
-								<!-- 인기 판매글 끝 -->
-
-								<!-- Category Start -->
-								<div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-									<div class="section-title section-title-sm position-relative pb-3 mb-4">
-										<h3 class="mb-0">Categories</h3>
-									</div>
-									<div class="link-animated d-flex flex-column justify-content-start">
-										<a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#"><i
-												class="bi bi-arrow-right me-2"></i>Web Design</a> <a
-											class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#"><i
-												class="bi bi-arrow-right me-2"></i>Web Development</a> <a
-											class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#"><i
-												class="bi bi-arrow-right me-2"></i>Web Development</a> <a
-											class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#"><i
-												class="bi bi-arrow-right me-2"></i>Keyword Research</a> <a
-											class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#"><i
-												class="bi bi-arrow-right me-2"></i>Email Marketing</a>
-									</div>
-								</div>
-								<!-- Category End -->
-
-
-
-								<!-- Image Start -->
-								<div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-									<img src="img/blog-1.jpg" alt="" class="img-fluid rounded">
-								</div>
-								<!-- Image End -->
-
-								<!-- Tags Start -->
-								<div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-									<div class="section-title section-title-sm position-relative pb-3 mb-4">
-										<h3 class="mb-0">Tag Cloud</h3>
-									</div>
-									<div class="d-flex flex-wrap m-n1">
-										<a href="" class="btn btn-light m-1">Design</a> <a href="" class="btn btn-light m-1">Development</a>
-										<a href="" class="btn btn-light m-1">Marketing</a> <a href="" class="btn btn-light m-1">SEO</a> <a
-											href="" class="btn btn-light m-1">Writing</a> <a href="" class="btn btn-light m-1">Consulting</a>
-										<a href="" class="btn btn-light m-1">Design</a> <a href="" class="btn btn-light m-1">Development</a>
-										<a href="" class="btn btn-light m-1">Marketing</a> <a href="" class="btn btn-light m-1">SEO</a> <a
-											href="" class="btn btn-light m-1">Writing</a> <a href="" class="btn btn-light m-1">Consulting</a>
-									</div>
-								</div>
-								<!-- Tags End -->
-
-
-							</div>
-							<!-- Sidebar End -->
-						</div>
-					</div>
-				</div>
-				<!-- Blog End -->
+								<!-- Blog End -->
 
 
 
 
-				<!-- Back to Top -->
-				<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded back-to-top"><i class="bi bi-arrow-up"></i></a>
+								<!-- Back to Top -->
+								<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded back-to-top"><i
+										class="bi bi-arrow-up"></i></a>
 
-			</body>
+						</body>
 
-			</html>
+						</html>
