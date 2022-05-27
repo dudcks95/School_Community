@@ -25,13 +25,22 @@ public class BoardService {
 	}
 
 	// 게시글 전체보기
-	public Page<Board> findAll(String field, String word, Pageable pageable) {
+	public Page<Board> findAll(String field, String word, Pageable pageable, String sort) {
 		if (field.equals("writer"))
-			return boardRepositoroy.findByWriterContaining(word, pageable);
+			return boardRepositoroy.findByWriterContainingAndSort(word, pageable, sort);
 		if (field.equals("title"))
-			return boardRepositoroy.findByTitleContaining(word, pageable);
-		return boardRepositoroy.findAll(pageable);
+			return boardRepositoroy.findByTitleContainingAndSort(word, pageable, sort);
+		return boardRepositoroy.findBySort(pageable,sort);
 	}
+	
+	// 게시글 전체보기3
+		public Page<Board> findAll2(String field, String word, Pageable pageable) {
+			if (field.equals("writer"))
+				return boardRepositoroy.findByWriterContaining(word, pageable);
+			if (field.equals("title"))
+				return boardRepositoroy.findByTitleContaining(word, pageable);
+			return boardRepositoroy.findAll(pageable);
+		}
 
 	// 게시글 수
 	public Long boardCount(String field, String word) {
@@ -63,6 +72,15 @@ public class BoardService {
 		Board board = boardRepositoroy.findById(no).get();
 		board.setHitcount(board.getHitcount() + 1);
 		return board;
+	}
+
+	// 관리자용 게시글
+	public Page<Board> adfindAll(String field, String word, Pageable pageable, String sort) {
+		if (field.equals("writer"))
+			return boardRepositoroy.findByWriterContainingAndSort(word, pageable, sort);
+		if (field.equals("title"))
+			return boardRepositoroy.findByTitleContainingAndSort(word, pageable, sort);
+		return boardRepositoroy.findAll(pageable);
 	}
 
 }

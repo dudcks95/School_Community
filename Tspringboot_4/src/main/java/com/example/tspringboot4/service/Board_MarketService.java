@@ -26,7 +26,6 @@ public class Board_MarketService {
 		UUID uuid = UUID.randomUUID();
 		MultipartFile f = mboard.getUpload(); // 업로드할 이미지 파일
 		String uploadFileName = "";
-		
 		if (!f.isEmpty()) { // 파일 선택창이 안비었을 때
 			uploadFileName = uuid.toString() + "_" + f.getOriginalFilename();
 			File saveFile = new File(uploadFolder, uploadFileName);
@@ -38,20 +37,25 @@ public class Board_MarketService {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 		}
 		board_MarketRepository.save(mboard);
 	}
 
 	// 장터게시판 리스트
-	public List<Board_Market> marketList() {
-		return board_MarketRepository.findAll();
+	public Page<Board_Market> marketList(Pageable pageable) {
+		return board_MarketRepository.findAll(pageable);
 	}
-	
-	//리스트 조회수 순서
+
+	// 리스트 수
+	public Long count() {
+		return board_MarketRepository.count();
+	}
+
+	// 리스트 조회수 순서
 	public List<Board_Market> hitCountList() {
-		return board_MarketRepository.findAll(Sort.by(Sort.Direction.DESC, "mHitcount"));
-//		return null;
+		return board_MarketRepository.findAll(Sort.by(Sort.Direction.DESC, "hitcount"));
+		// return null;
 	}
 
 	// 장터게시판 상세보기

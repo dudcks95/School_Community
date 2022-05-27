@@ -1,30 +1,37 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-	<%@ include file="/WEB-INF/views/includes/4headerSub.jsp" %>
-		<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-			<!DOCTYPE html>
-			<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="../includes/4headerSub.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<div class="container-fluid bg-primary py-5 bg-header"
+	style="margin-bottom: 90px;">
+	<div class="row ">
+		<div class="col-12 text-center"></div>
+	</div>
+</div>
+<div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+	<div class="container py-5">
+		<div class="row g-5">
+			<div class="col-lg-3">
 
-			<head>
-				<title>Insert title here</title>
-			</head>
-
-			<body>
-				<div class="container-fluid bg-primary py-5 bg-header" style="margin-bottom: 90px;">
-					<div class="row py-5">
-						<div class="col-12 pt-lg-5 mt-lg-5 text-center">
-							<h1 class="display-4 text-white animated zoomIn">${sort}게시판</h1>
-							
-							<a href="" class="h5 text-white">Home</a> <i class="far fa-circle text-white px-2"></i> <a href=""
-								class="h5 text-white">게시판</a>
-						</div>
+				<!-- Category Start -->
+				<div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+					<div
+						class="section-title section-title-sm position-relative pb-3 mb-4">
+						<h3 class="mb-0">관리</h3>
+					</div>
+					<div class="link-animated d-flex flex-column justify-content-start">
+						<a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+							href="/userlist"><i class="bi bi-arrow-right me-2"></i>회원리스트</a>
+						<a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+							href=""><i class="bi bi-arrow-right me-2 "></i>게시판</a>
+						<a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+							href=""><i class="bi bi-arrow-right me-2"></i>장터</a>
 					</div>
 				</div>
-
-
-				<div class="container">
-					<div align="right" style="margin:15px 0">
-						<button class="btn btn-primary" id="wirteBtn">글쓰기</button>
-					</div>
+				<!-- Category End -->
+			</div>
+		<div class="container">
+					
 					<div class="bg-white">
 						<table class="table table-hover">
 							<thead>
@@ -40,9 +47,9 @@
 							</thead>
 
 							<tbody>
-
-								<c:forEach items="${boards.content }" var="board" varStatus="st">
-
+							
+							<c:forEach items="${boards.content }" var="board" varStatus="st">
+							
 									<tr>
 										<td class="bg-white col-num">${rowNo-st.index }</td>
 										<td class="bg-white col-sort">${board.sort }</td>
@@ -53,7 +60,7 @@
 										</td>
 										<td class="bg-white col-writer">${board.writer }</td>
 										<td class="bg-white col-hitcount">${board.hitcount }</td>
-									</tr>
+									</tr>																							
 								</c:forEach>
 							</tbody>
 						</table>
@@ -66,7 +73,7 @@
 									<li class="page-item"><a class="page-link" href="?page=${boards.number+1 }">다음</a></li>
 								</c:if>
 							</ul>
-							<form class="form-inline">
+							<form class="form-inline" action="/adboard" method="get">
 								<div class="row">
 									<div class="col-3">
 										<select name="field" class="form-control mr-sm-1">
@@ -85,8 +92,21 @@
 						</div>
 					</div>
 				</div>
-				<script>
-					$("#wirteBtn").click(function () {
-						location.href = "/boardInsert"
-					})
-				</script>
+		</div>
+	</div>
+</div>
+<script>
+	function del(userNo) {
+		if (confirm("정말 삭제할까요?")) {
+			$.ajax({
+				type : "delete",
+				url : "/delete/" + userNo
+			}).done(function(resp) {
+				alert("삭제성공")
+				location.href = "/userlist";
+			}).fail(function(e) {
+				alert("삭제실패")
+			})
+		}
+	}
+</script>

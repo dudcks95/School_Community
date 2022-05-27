@@ -19,9 +19,9 @@
 				<div class="form-group">
 					<label for="sort">분류:</label>
 					<select class="form-control bg-white" id="sort" name="sort">
-						<option>자유게시판</option>
-						<option>자유게시판</option>
-						<option>자유게시판</option>
+						<option value="자유">자유게시판</option>
+						<option value="동아리">동아리</option>
+						<option value="취미">취미</option>
 					</select>
 				</div>
 
@@ -37,6 +37,6 @@
 
 				</div>
 
-				<button type="submit" class="btn btn-primary btn-sm">글쓰기</button>
+				<button type="submit" class="btn btn-primary btn-sm mt-3">글쓰기</button>
 			</form>
 		</div>
