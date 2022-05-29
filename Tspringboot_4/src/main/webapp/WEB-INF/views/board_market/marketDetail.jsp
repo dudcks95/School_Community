@@ -51,6 +51,7 @@
 							</div>
 					</div>
 					<div class="col-lg-6 wow slideInUp" data-wow-delay="0.3s">
+						<input type="hidden" id="mno" name="mno" />
 						<form>
 							<div class="row g-3">
 								<div class="col-2">
@@ -58,7 +59,7 @@
 										disabled="disabled">
 								</div>
 								<div class="col-10">
-									<input type="text" class="form-control border-0 bg-light px-4" value="${product.m_pname }"
+									<input type="text" class="form-control border-0 bg-light px-4" value="${product.mpname }"
 										style="height: 55px;" disabled="disabled">
 								</div>
 								<div class="col-md-2">
@@ -116,7 +117,7 @@
 
 				<div class="mt-5" align="center">
 					<textarea rows="3" cols="70" id="msg"></textarea>
-					<button type="button" class="btn btn-info btn-sm" id="btnComment">댓글쓰기</button>
+					<button type="button" class="btn btn-info btn-sm " id="btnMcomment" style="margin: 0 0 25px 0">댓글쓰기</button>
 				</div>
 				<div id="replyResult" style="margin: 0 60px"></div>
 			</div>
@@ -150,21 +151,21 @@
 			$("#btnList").click(function () {
 				location.href = "/marketList"
 			})
-			//여기 아직 덜만듬
+			//댓글추가
 			var init = function () {
 				$.ajax({
 					type: "get",
-					url: "/reply/list/${board.no}"
+					url: "/mreply/list/${product.mno}"
 				})
 					.done(function (resp) {
 						var str = "<table class='table table-condensed'><tr><th class='col-name'>이름</th><th class='col-ccontent'>내용</th><th class='col-cregdate'>날짜</th><th class='col-name'>구분</th></tr>"
 						$.each(resp, function (key, val) {
 							str += "<tr>"
 							str += "<td class='col-name'>" + val.user.name + "</td>"
-							str += "<td class='col-ccontent'>" + val.c_content + "</td>"
-							str += "<td class='col-cregdate'>" + val.c_regdate + "</td>"
+							str += "<td class='col-ccontent'>" + val.m_c_content + "</td>"
+							str += "<td class='col-cregdate'>" + val.m_c_regdate + "</td>"
 							if ("${principal.user.username}" == val.user.username) {
-								str += "<td class='col-name'><a href='javascript:cdel(" + val.cnum + ")'>삭제</a></td>"
+								str += "<td class='col-name'><a href='javascript:mdel(" + val.m_cnum + ")'>삭제</a></td>"
 							} else {
 								str += "<td class='col-name'></td>"
 							}
@@ -173,17 +174,51 @@
 						str += "</table>"
 						$("#replyResult").html(str);
 					})
+				$("#btnMcomment").click(function () {
+					if (${empty principal.user }){
+					alert("로그인 하세요")
+					location.href = "/login";
+					return;
+				}
+				var data = {
+					"m_bnum": $("#mno").val(),
+					"m_c_content": $("#msg").val()
+				}
+				$.ajax({
+					type: "POST",
+					url: "/mreply/insert/${product.mno}",
+					contentType: "application/json;charset=utf-8",
+					data: JSON.stringify(data)
+				})
+					.done(function (resp) {
+						alert("댓글추가성공")
+						$("#msg").val("")
+						init();
+					})
+					.fail(function () {
+						alert("댓글추가실패")
+					})
+			})
+					
+			}
+
+			init();
+
+			//댓글삭제
+			function mdel(m_cnum) {
+				$.ajax({
+					type: "delete",
+					url: "/mreply/delete/" + m_cnum
+				})
+					.done(function (resp) {
+						alert(resp + "번 댓글 삭제완료")
+						init()
+					})
+					.fail(function () {
+						alert("댓글삭제살패")
+					})
 			}
 		</script>
 
-
-
-
 		<!-- Back to Top -->
 		<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded back-to-top"><i class="bi bi-arrow-up"></i></a>
-
-
-
-		</body>
-
-		</html>

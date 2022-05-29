@@ -59,11 +59,9 @@
 		<div class="row gx-0">
 			<div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
 				<div class="d-inline-flex align-items-center" style="height: 45px;">
-					<small class="me-3 text-light"><i
-						class="fa fa-map-marker-alt me-2"></i>123 Street, New York, USA</small> <small
-						class="me-3 text-light"><i class="fa fa-phone-alt me-2"></i>+012
-						345 6789</small> <small class="text-light"><i
-						class="fa fa-envelope-open me-2"></i>info@example.com</small>
+					<small class="me-3 text-light"><i class="fa fa-map-marker-alt me-2"></i>부산시 부산진구 부전동
+									</small> <small class="me-3 text-light"><i class="fa fa-phone-alt me-2"></i>010-1111-1111</small> <small class="text-light"><i
+										class="fa fa-envelope-open me-2"></i>example@naver.com</small>
 				</div>
 			</div>
 			<div class="col-lg-4 text-center text-lg-end">
@@ -89,67 +87,61 @@
 	<!-- Navbar & Carousel Start -->
 	<div class="container-fluid position-relative p-0">
 		<nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0">
-			<a href="index.html" class="navbar-brand p-0">
+			<a href="/" class="navbar-brand p-0">
 				<h1 class="m-0">
-					<i class="fa fa-user-tie me-2"></i>Community
+					<i class="fa fa-user-tie me-2"></i>University Community
 				</h1>
 			</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
 				<span class="fa fa-bars"></span>
 			</button>
+			
 			<div class="collapse navbar-collapse" id="navbarCollapse">
-				<div class="navbar-nav ms-auto py-0">
-					<a href="/" class="nav-item nav-link">Home</a>
+				<div class="navbar-nav lf-auto py-0">
+				<sec:authorize access="hasRole('USER')">
+					<a href="${principal.user.school.adres }" class="nav-item nav-link"><${principal.user.school.schoolName
+						} 사이트로 이동></a>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
 					<div class="nav-item dropdown">
 						<a href="" class="nav-item nav-link" data-bs-toggle="dropdown">게시판</a>
 						<div class="dropdown-menu m-0">
-							<a href="/boardList" class="dropdown-item">자유 게시판</a> <a
-								href="/boardList" class="dropdown-item">동아리 게시판</a>
+							<a href="/boardList" class="dropdown-item">전체 게시판</a> <a
+								href="/boardList/자유" class="dropdown-item">자유 게시판</a> <a
+								href="/boardList/동아리" class="dropdown-item">동아리 게시판</a> <a
+								href="/boardList/취미" class="dropdown-item">취미 게시판</a>
 						</div>
 					</div>
 					<a href="/marketList" class="nav-item nav-link">장터</a>
-					<div class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle"
-							data-bs-toggle="dropdown" aria-expanded="false">Blog</a>
-						<div class="dropdown-menu m-0">
-							<a href="blog.html" class="dropdown-item">Blog Grid</a> <a
-								href="detail.html" class="dropdown-item">Blog Detail</a>
-						</div>
-					</div>
-					<a href="contact.html" class="nav-item nav-link">시간표</a>
-					<div class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle"
-							data-bs-toggle="dropdown">Pages</a>
-						<div class="dropdown-menu m-0">
-							<a href="price.html" class="dropdown-item">Pricing Plan</a> <a
-								href="feature.html" class="dropdown-item">Our features</a> <a
-								href="team.html" class="dropdown-item">Team Members</a> <a
-								href="testimonial.html" class="dropdown-item">Testimonial</a> <a
-								href="quote.html" class="dropdown-item">Free Quote</a>
-						</div>
-					</div>
-					<a href="contact.html" class="nav-item nav-link">Contact</a>
+					</sec:authorize>
 				</div>
 			</div>
+			
 			<sec:authorize access="hasRole('ADMIN')">
+			<div class="navbar-nav ms-auto py-0">
 				<a href="/userlist" class="nav-item nav-link">회원관리</a>
+				</div>
 			</sec:authorize>
-			<sec:authorize access="hasRole('USER')">
-				<a href="/boardInsert" class="nav-item nav-link">회원전용</a>
-			</sec:authorize>
+
 
 
 
 			<sec:authorize access="isAnonymous()">
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<div class="navbar-nav ms-auto py-0">
 				<a class="nav-item nav-link" href="/login">로그인</a>
 				<a class="nav-item nav-link" href="/join">회원가입</a>
+				</div>
+			</div>
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
+				<div class="navbar-nav ms-auto py-0">
 				<a class="nav-item nav-link"
 					href="/myinfo/${principal.user.userNo }">마이페이지</a>
 				<a class="nav-item nav-link" href="/logout">로그아웃
 					(${principal.user.name}님)</a>
+				</div>
 			</sec:authorize>
 		</nav>
 
@@ -161,13 +153,21 @@
 					<div
 						class="carousel-caption d-flex flex-column align-items-center justify-content-center">
 						<div class="p-3" style="max-width: 900px;">
-							<h5 class="text-white text-uppercase mb-3 animated slideInDown">here</h5>
-							<h1 class="display-1 text-white mb-md-4 animated zoomIn">Community</h1>
 							<sec:authorize access="isAnonymous()">
-							<a href="/login"
-								class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">로그인</a>
-							<a href="/join"
-								class="btn btn-outline-light py-md-3 px-md-5 animated slideInRight">회원가입</a>
+								<h5 class="text-white text-uppercase mb-3 animated slideInDown">어서오세요!</h5>
+							</sec:authorize>
+							<sec:authorize access="hasRole('USER')">
+								<h5 class="text-white text-uppercase mb-3 animated slideInDown">어서오세요!
+									${principal.user.school.schoolName } 학생 ${principal.user.name}
+									님</h5>
+							</sec:authorize>
+							<h1 class="display-1 text-white mb-md-4 animated zoomIn">University
+								Community</h1>
+							<sec:authorize access="isAnonymous()">
+								<a href="/login"
+									class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">로그인</a>
+								<a href="/join"
+									class="btn btn-outline-light py-md-3 px-md-5 animated slideInRight">회원가입</a>
 							</sec:authorize>
 						</div>
 					</div>
@@ -177,13 +177,22 @@
 					<div
 						class="carousel-caption d-flex flex-column align-items-center justify-content-center">
 						<div class="p-3" style="max-width: 900px;">
-							<h5 class="text-white text-uppercase mb-3 animated slideInDown">Page2</h5>
-							<h1 class="display-1 text-white mb-md-4 animated zoomIn">Community2</h1>
 							<sec:authorize access="isAnonymous()">
-							<a href="/login"
-								class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">로그인</a>
-							<a href="/join"
-								class="btn btn-outline-light py-md-3 px-md-5 animated slideInRight">회원가입</a>
+								<h5 class="text-white text-uppercase mb-3 animated slideInDown">어서오세요!</h5>
+							</sec:authorize>
+							<sec:authorize access="hasRole('USER')">
+								<h5 class="text-white text-uppercase mb-3 animated slideInDown">어서오세요!
+									${principal.user.school.schoolName } 학생 ${principal.user.name}
+									님</h5>
+							</sec:authorize>
+
+							<h1 class="display-1 text-white mb-md-4 animated zoomIn">University
+								Community</h1>
+							<sec:authorize access="isAnonymous()">
+								<a href="/login"
+									class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">로그인</a>
+								<a href="/join"
+									class="btn btn-outline-light py-md-3 px-md-5 animated slideInRight">회원가입</a>
 							</sec:authorize>
 						</div>
 					</div>
@@ -205,49 +214,9 @@
 
 
 
-	<!-- Facts Start -->
-    <div class="container-fluid facts py-5 pt-lg-0">
-        <div class="container py-5 pt-lg-0">
-            <div class="row gx-0">
-                <div class="col-lg-4 wow zoomIn" data-wow-delay="0.1s">
-                    <div class="bg-primary shadow d-flex align-items-center justify-content-center p-4" style="height: 150px;">
-                        <div class="bg-white d-flex align-items-center justify-content-center rounded mb-2" style="width: 60px; height: 60px;">
-                            <i class="fa fa-users text-primary"></i>
-                        </div>
-                        <div class="ps-4">
-                            <h5 class="text-white mb-0">회원 수</h5>
-                            <h1 class="text-white mb-0" data-toggle="counter-up">12345</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 wow zoomIn" data-wow-delay="0.3s">
-                    <div class="bg-light shadow d-flex align-items-center justify-content-center p-4" style="height: 150px;">
-                        <div class="bg-primary d-flex align-items-center justify-content-center rounded mb-2" style="width: 60px; height: 60px;">
-                            <i class="fa fa-check text-white"></i>
-                        </div>
-                        <div class="ps-4">
-                            <h5 class="text-primary mb-0">게시글 수</h5>
-                            <h1 class="mb-0" data-toggle="counter-up">12345</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 wow zoomIn" data-wow-delay="0.6s">
-                    <div class="bg-primary shadow d-flex align-items-center justify-content-center p-4" style="height: 150px;">
-                        <div class="bg-white d-flex align-items-center justify-content-center rounded mb-2" style="width: 60px; height: 60px;">
-                            <i class="fa fa-award text-primary"></i>
-                        </div>
-                        <div class="ps-4">
-                            <h5 class="text-white mb-0">학교 수</h5>
-                            <h1 class="text-white mb-0" data-toggle="counter-up">12345</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Facts Start -->
-    
-    
+
+
+
 	<!-- JavaScript Libraries -->
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script

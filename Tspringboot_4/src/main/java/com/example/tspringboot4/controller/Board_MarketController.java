@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.tspringboot4.config.auth.PrincipalDetails;
@@ -61,9 +61,11 @@ public class Board_MarketController {
 	// 장터게시판 리스트 출력
 	@GetMapping("marketList")
 	public String marketList(Model model,
-			@PageableDefault(size = 6, sort = "mno", direction = Direction.DESC) Pageable pageable) {
-		model.addAttribute("count", board_MarketService.count());
-		model.addAttribute("products", board_MarketService.marketList(pageable));
+			@PageableDefault(size = 6, sort = "mno", direction = Direction.DESC) Pageable pageable,
+			@RequestParam(required = false, defaultValue = "") String field,
+			@RequestParam(required = false, defaultValue = "") String word) {
+		model.addAttribute("count", board_MarketService.count(field, word));
+		model.addAttribute("products", board_MarketService.marketList(field, word, pageable));
 		model.addAttribute("hits", board_MarketService.hitCountList());
 		return "/board_market/marketList";
 	}
@@ -98,12 +100,16 @@ public class Board_MarketController {
 		board_MarketService.marketUpdate(mboard, uploadFolder);
 		return "success";
 	}
-	ArrayList<E> clist = new ArrayList<E>();
-	
-	for(int i=0; i<10; i++) {
-		for(int j=0; j<10; j++) {
-			System.out.println();
-		}
+
+	// 관리자용 장터
+	@GetMapping("admarket")
+	public String admarket(Model model,
+			@PageableDefault(size = 6, sort = "mno", direction = Direction.DESC) Pageable pageable,
+			@RequestParam(required = false, defaultValue = "") String field,
+			@RequestParam(required = false, defaultValue = "") String word) {
+		model.addAttribute("count", board_MarketService.count(field, word));
+		model.addAttribute("products", board_MarketService.marketList(field, word, pageable));
+		return "/admin/admarket";
 	}
 
 }

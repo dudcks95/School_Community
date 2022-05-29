@@ -68,7 +68,7 @@ public class UserService {
 
 	// 내가 작성한 댓글
 	public Page<Comment> cfindByUserNo(Long userNo, Pageable pageable) {
-		return commentRepository.findByUserNo(userNo, pageable);
+		return commentRepository.findByUserNo(userNo, pageable); 
 	}
 
 	// 내가작성한 댓글 수
@@ -78,14 +78,14 @@ public class UserService {
 
 	// 나의 장터
 	public Page<Board_Market> mfindByUserNo(Long userNo, String field, String word, Pageable pageable) {
-		if (field.equals("m_pname"))
+		if (field.equals("mpname"))
 			return bmRepository.mfindByUserNoContaing(userNo, word, pageable);
 		return bmRepository.findByUserNo(userNo, pageable);
 	}
 
 	// 나의 장터 수
 	public Long marketCount(Long userNo, String field, String word) {
-		if (field.equals("m_pname"))
+		if (field.equals("mpname"))
 			return bmRepository.mcntUserNoContaing(userNo, word);
 		return bmRepository.cfindByUserNo(userNo);
 	}

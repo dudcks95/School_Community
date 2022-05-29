@@ -31,7 +31,7 @@ public class Board_Market {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long mno;
-	private String m_pname; // 물건이름, 제목
+	private String mpname; // 물건이름, 제목
 	private String m_writer;
 	private String m_pcontent;
 	private Long price;

@@ -43,19 +43,22 @@ public class Board_MarketService {
 	}
 
 	// 장터게시판 리스트
-	public Page<Board_Market> marketList(Pageable pageable) {
+	public Page<Board_Market> marketList(String field, String word, Pageable pageable) {
+		if (field.equals("mpname"))
+			return board_MarketRepository.findByMpnameContaining(word, pageable);
 		return board_MarketRepository.findAll(pageable);
 	}
 
 	// 리스트 수
-	public Long count() {
+	public Long count(String field, String word) {
+		if (field.equals("mpname"))
+			return board_MarketRepository.cntMpnameContaining(word);
 		return board_MarketRepository.count();
 	}
 
 	// 리스트 조회수 순서
 	public List<Board_Market> hitCountList() {
 		return board_MarketRepository.findAll(Sort.by(Sort.Direction.DESC, "hitcount"));
-		// return null;
 	}
 
 	// 장터게시판 상세보기
@@ -84,7 +87,7 @@ public class Board_MarketService {
 				e.printStackTrace();
 			}
 		}
-		m.setM_pname(mboard.getM_pname());
+		m.setMpname(mboard.getMpname());
 		m.setM_pcontent(mboard.getM_pcontent());
 		m.setPrice(mboard.getPrice());
 	}

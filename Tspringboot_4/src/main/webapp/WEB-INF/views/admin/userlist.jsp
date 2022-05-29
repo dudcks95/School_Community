@@ -11,23 +11,7 @@
 	<div class="container py-5">
 		<div class="row g-5">
 			<div class="col-lg-3">
-
-				<!-- Category Start -->
-				<div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-					<div
-						class="section-title section-title-sm position-relative pb-3 mb-4">
-						<h3 class="mb-0">관리</h3>
-					</div>
-					<div class="link-animated d-flex flex-column justify-content-start">
-						<a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-							href="/userlist"><i class="bi bi-arrow-right me-2"></i>회원리스트</a>
-						<a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-							href=""><i class="bi bi-arrow-right me-2 "></i>게시판</a>
-						<a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-							href=""><i class="bi bi-arrow-right me-2"></i>장터</a>
-					</div>
-				</div>
-				<!-- Category End -->
+				<%@ include file="../includes/adcategori.jsp"%>
 			</div>
 			<div class="col-lg-9">
 				<div
@@ -61,7 +45,7 @@
 									</c:if>
 									<c:if test="${user.role eq'ROLE_USER' }">
 										<td class="col-delete" onclick="del('${user.userNo}')">삭제</td>
-									</c:if>		
+									</c:if>
 								</tr>
 							</c:forEach>
 						</tbody>

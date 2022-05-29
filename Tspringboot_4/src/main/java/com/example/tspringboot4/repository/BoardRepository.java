@@ -1,7 +1,5 @@
 package com.example.tspringboot4.repository;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,10 +11,13 @@ import com.example.tspringboot4.model.Board;
 public interface BoardRepository extends JpaRepository<Board, Long>{
 	//이름검색
 	Page<Board> findByWriterContainingAndSort(String writer, Pageable pageable, String sort);
+	//Page<Board> findByWriterContainingAndSortAndSchoolName(String writer, Pageable pageable, String sort, String schoolName);
 	//제목 검색
 	Page<Board> findByTitleContainingAndSort(String title, Pageable pageable, String sort);
+	//Page<Board> findByTitleContainingAndSortAndSchoolName(String title, Pageable pageable, String sort, String schoolName);
 	
 	Page<Board> findBySort(Pageable pageable, String sort);
+	//Page<Board> findBySort(Pageable pageable, String sort, String schoolName);
 	//이름검색
 		Page<Board> findByWriterContaining(String writer, Pageable pageable);
 		//제목 검색
