@@ -146,9 +146,9 @@
 					"pwd_check": $("#pwd_check").val(),
 					"email": $("#email").val(),
 					"phone": $("#phone").val(),
-					"school": {
-						"schoolName": $("#schoolName").val()
-					},
+					/* "school": {
+						"schoolId": $("#schoolName").val()
+					}, */
 					"schoolgrade": $(
 						"input:radio[name='schoolgrade']:checked")
 						.val()

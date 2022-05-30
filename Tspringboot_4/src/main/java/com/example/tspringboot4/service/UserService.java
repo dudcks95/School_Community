@@ -120,7 +120,7 @@ public class UserService {
 		u.setPassword(encPassword);
 		u.setEmail(user.getEmail());
 		u.setPhone(user.getPhone());
-		u.setSchool(user.getSchool());
+		//u.setSchool(user.getSchool());
 		u.setSchoolgrade(user.getSchoolgrade());
 	}
 

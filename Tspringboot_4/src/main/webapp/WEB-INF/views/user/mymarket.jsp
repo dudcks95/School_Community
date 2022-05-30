@@ -69,7 +69,7 @@
 									<div class="row">
 										<div class="col-3">
 											<select name="field" class="form-control mr-sm-1">
-												<option value="m_pname">제목</option>
+												<option value="mpname">제목</option>
 											</select>
 										</div>
 										<div class="col-6">
