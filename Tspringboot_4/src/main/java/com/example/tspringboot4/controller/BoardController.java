@@ -36,16 +36,28 @@ public class BoardController {
 			@PageableDefault(size = 8, sort = "no", direction = Direction.DESC) Pageable pageable,
 			@RequestParam(required = false, defaultValue = "") String field,
 			@RequestParam(required = false, defaultValue = "") String word) {
-		System.out.println("sort: " + sort);
 		Page<Board> board = boardService.findAll(field, word, pageable, sort);
 		Long count = boardService.boardCount(field, word);
-		// model.addAttribute("sort", sort);
 		model.addAttribute("sort", board.getContent().get(0).getSort());
 		model.addAttribute("boards", board);
 		model.addAttribute("count", count);
 		model.addAttribute("rowNo", count - (board.getNumber() * pageable.getPageSize()));
 		return "/board/boardList";
 	}
+	
+//	@GetMapping("boardList/{schoolName}/{sort}")
+//	public String list(Model model, @PathVariable String schoolName, @PathVariable String sort,
+//			@PageableDefault(size = 8, sort = "no", direction = Direction.DESC) Pageable pageable,
+//			@RequestParam(required = false, defaultValue = "") String field,
+//			@RequestParam(required = false, defaultValue = "") String word) {
+//		Page<Board> board = boardService.findAll(field, word, pageable, sort, schoolName);
+//		Long count = boardService.boardCount(field, word);
+//		model.addAttribute("sort", board.getContent().get(0).getSort());
+//		model.addAttribute("boards", board);
+//		model.addAttribute("count", count);
+//		model.addAttribute("rowNo", count - (board.getNumber() * pageable.getPageSize()));
+//		return "/board/boardList";
+//	}
 
 	@GetMapping("boardList")
 	public String list(Model model,

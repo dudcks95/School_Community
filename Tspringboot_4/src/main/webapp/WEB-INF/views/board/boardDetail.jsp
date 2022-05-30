@@ -4,16 +4,12 @@
 			<div class="row py-5">
 				<div class="col-12 pt-lg-5 mt-lg-5 text-center">
 					<h1 class="display-4 text-white animated zoomIn">게시판</h1>
-					<a href="" class="h5 text-white">Home</a>
 				</div>
 			</div>
 		</div>
 		<!DOCTYPE html>
 		<html>
 
-		<head>
-			<title>Insert title here</title>
-		</head>
 
 		<body>
 			<div class="container">
@@ -40,12 +36,12 @@
 					</table>
 				</div>
 				<div align="right">
-					<%-- <c:if test="${principal.user. }"> --%>
+						<c:if test="${principal.user.name== board.writer }">
 						<button class="btn btn-info" type="button" id="btnUpdate">글
 							수정</button>
 						<button class="btn btn-danger" type="button" id="btnDelete">글
 							삭제</button>
-						<%-- </c:if> --%>
+						</c:if>
 							<button class="btn btn-dark" type="button" id="btnList">글 목록</button>
 				</div>
 				<div class="mt-5" align="center">

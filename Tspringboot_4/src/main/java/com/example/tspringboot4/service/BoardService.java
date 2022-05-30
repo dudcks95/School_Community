@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.tspringboot4.model.Board;
+import com.example.tspringboot4.model.School;
 import com.example.tspringboot4.model.User;
 import com.example.tspringboot4.repository.BoardRepository;
 
@@ -21,6 +22,7 @@ public class BoardService {
 	// 게시글 입력
 	public void boardInsert(Board board, User user) {
 		board.setUser(user);
+		// board.setSchool(school);
 		boardRepositoroy.save(board);
 	}
 
@@ -33,7 +35,16 @@ public class BoardService {
 		return boardRepositoroy.findBySort(pageable, sort);
 	}
 
-	// 게시글 전체보기3
+	// 게시글 전체보기(학교분류 시도)
+//	public Page<Board> findAll(String field, String word, Pageable pageable, String sort, String schoolName) {
+//		if (field.equals("writer"))
+//			return boardRepositoroy.findByWriterContainingAndSort(word, pageable, sort);
+//		if (field.equals("title"))
+//			return boardRepositoroy.findByTitleContainingAndSort(word, pageable, sort);
+//		return boardRepositoroy.findBySort(pageable, sort, schoolName);
+//	}
+
+	// 게시글 전체보기2
 	public Page<Board> findAll2(String field, String word, Pageable pageable) {
 		if (field.equals("writer"))
 			return boardRepositoroy.findByWriterContaining(word, pageable);

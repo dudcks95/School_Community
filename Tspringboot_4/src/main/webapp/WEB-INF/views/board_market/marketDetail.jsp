@@ -6,10 +6,14 @@
 		<div class="container-fluid bg-primary py-5 bg-header" style="margin-bottom: 30px;">
 			<div class="row py-5">
 				<div class="col-12 pt-lg-5 mt-lg-5 text-center">
-					<h1 class="display-4 text-white animated zoomIn">(음)</h1>
-					<a href="" class="h5 text-white">ㄴㄴㄴㄴ</a> <i class="far fa-circle text-white px-2"></i> <a href=""
-						class="h5 text-white">ㄷㄷㄷㄷㄷ</a>
-				</div>
+			<h1 class="display-4 text-white animated zoomIn">장터 게시판</h1>
+			<sec:authorize access="hasRole('USER')">
+			<a class="h5 text-white"><${principal.user.school.schoolName }></a>
+			</sec:authorize>
+			<sec:authorize access="hasRole('ADMIN')">
+			<a class="h5 text-white"><관리자입니다></a>
+			</sec:authorize>
+		</div>
 			</div>
 		</div>
 
@@ -91,15 +95,8 @@
 									<input type="text" class="form-control border-0 bg-light px-4" value="${product.m_pcontent }"
 										style="height: 110px;" disabled="disabled">
 								</div>
-
-								<div class="col-12">
-									<input type="text" class="form-control border-0 bg-light px-4" placeholder="Subject"
-										style="height: 55px;">
-								</div>
-								<div class="col-12">
-									<textarea class="form-control border-0 bg-light px-4 py-3" rows="4" placeholder="Message"></textarea>
-								</div>
 								<div class="col-7"></div>
+								<c:if test="${principal.user.name== product.m_writer }">
 								<div class="col-5">
 									<button type="button" class="btn btn-primary" id="btnUpdate">글
 										수정</button>
@@ -108,6 +105,7 @@
 									<button type="button" class="btn btn-secondary" id="btnList">글
 										목록</button>
 								</div>
+								</c:if>
 							</div>
 						</form>
 					</div>

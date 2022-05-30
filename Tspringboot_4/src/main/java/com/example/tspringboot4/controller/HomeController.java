@@ -30,7 +30,7 @@ import com.example.tspringboot4.model.Board;
 import com.example.tspringboot4.model.Board_Market;
 import com.example.tspringboot4.model.Comment;
 import com.example.tspringboot4.model.School;
-
+import com.example.tspringboot4.repository.BoardRepository;
 import com.example.tspringboot4.repository.SchoolRepository;
 import com.example.tspringboot4.service.BoardService;
 import com.example.tspringboot4.service.UserService;
@@ -49,11 +49,15 @@ public class HomeController {
 	private final SchoolRepository schoolRepository;
 	private final UserRepository userRepository;
 	private final BoardService boardService;
-
+	private final BoardRepository boardRepository;
+	
+	
 	@GetMapping("/")
 	public String home(Model model) {
 		
-		//model.addAttribute("usercount", count)
+		model.addAttribute("usercount", userRepository.count());
+		model.addAttribute("boardcount", boardRepository.count());
+		model.addAttribute("schoolcount", schoolRepository.count());
 		return "home";
 	}
 

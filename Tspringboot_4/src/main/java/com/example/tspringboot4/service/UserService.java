@@ -68,7 +68,7 @@ public class UserService {
 
 	// 내가 작성한 댓글
 	public Page<Comment> cfindByUserNo(Long userNo, Pageable pageable) {
-		return commentRepository.findByUserNo(userNo, pageable);
+		return commentRepository.findByUserNo(userNo, pageable); 
 	}
 
 	// 내가작성한 댓글 수

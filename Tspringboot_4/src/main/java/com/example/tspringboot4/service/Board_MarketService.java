@@ -59,7 +59,6 @@ public class Board_MarketService {
 	// 리스트 조회수 순서
 	public List<Board_Market> hitCountList() {
 		return board_MarketRepository.findAll(Sort.by(Sort.Direction.DESC, "hitcount"));
-		// return null;
 	}
 
 	// 장터게시판 상세보기

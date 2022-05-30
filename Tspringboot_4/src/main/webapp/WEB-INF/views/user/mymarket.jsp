@@ -43,7 +43,7 @@
 											class="far fa-calendar-alt text-primary me-2"></i> 게시일 : <fmt:formatDate
 												value="${product.m_regdate }" pattern="yyyy-MM-dd" /> </small>
 									</div>
-									<h4 class="mb-3">${product.m_pname }</h4>
+									<h4 class="mb-3">${product.mpname }</h4>
 									<p>가격 : ${product.price }원</p>
 									<a class="text-uppercase" href="/marketDetail/${product.mno }">자세히
 										보기<i class="bi bi-arrow-right"></i>
